@@ -24,10 +24,15 @@ Unlike most programming languages, Common Lisp in principle imposes no limit on
 the magnitude of an integer; storage
 is automatically allocated as necessary to represent large integers.
 <P>
+  整数，不像其它语言，Common Lisp 中提供任意大的整数，存储空间按需自动分配。
+<P>
 In every Common Lisp implementation there is a range of integers that are
 represented more efficiently than others; each such integer is called a
 <i>fixnum</i>, and an integer that is not a fixnum is called a
 <i>bignum</i>.
+<P>
+  每个Common Lisp 实现中都有<i>fixnum</i>，不是fixnum的整数叫<i>bignum</i>.
+<P>
 Common Lisp is designed to hide this distinction as much as possible;
 the distinction between fixnums and bignums is visible to
 the user in only a few places where the efficiency of representation is
@@ -36,6 +41,10 @@ fixnums is implementation-dependent; typically they will be those
 integers in the range <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap40205.gif"> to <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap40207.gif">,
 inclusive, for some <i>n</i> not less than 15.
 See <tt>most-positive-fixnum</tt> and <tt>most-negative-fixnum</tt>.
+<P>
+  Common Lisp被设计为尽量隐藏这个区别。fixnum多大是实现相关的。
+  通常会是<code>-2<sup>n</sup></code>到<code>2<sup>n</sup>-1</code>, <code>n&gt;=15</code>.
+  见<tt>most-positive-fixnum</tt> 和 <tt>most-negative-fixnum</tt>.
 <P>
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
 X3J13 voted in January 1989
@@ -121,6 +130,8 @@ For example:
     #25R-7H     ;Same thing in base 25 
   #xACCEDED     ;181202413, in hexadecimal radix
 </pre><P>
+<P>
+  其它进制表示法见上。
 <P>
 <BR> <HR><A NAME=tex2html1721 HREF="node18.html"><IMG ALIGN=BOTTOM ALT="next" SRC="icons/next_motif.gif"></A> <A NAME=tex2html1719 HREF="node16.html"><IMG ALIGN=BOTTOM ALT="up" SRC="icons/up_motif.gif"></A> <A NAME=tex2html1713 HREF="node16.html"><IMG ALIGN=BOTTOM ALT="previous" SRC="icons/previous_motif.gif"></A> <A NAME=tex2html1723 HREF="node1.html"><IMG ALIGN=BOTTOM ALT="contents" SRC="icons/contents_motif.gif"></A> <A NAME=tex2html1724 HREF="index.html"><IMG ALIGN=BOTTOM ALT="index" SRC="icons/index_motif.gif"></A> <BR>
 <B> Next:</B> <A NAME=tex2html1722 HREF="node18.html"> Ratios</A>

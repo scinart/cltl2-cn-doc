@@ -26,6 +26,8 @@ a declaration may always be omitted, and the program will still run correctly.
 Such a declaration merely constitutes advice from the user
 that may be useful in gaining efficiency.  See <tt>declare</tt>.)
 <P>
+Common Lisp 有很多类型。注意到在Lisp中数据对象是有类型的，而不是变量。变量的值可能是任何类型。
+<P>
 In Common Lisp, a data type is a (possibly infinite) set of
 Lisp objects.  Many Lisp objects belong to more than one
 such set, and so it doesn't always make sense to ask what is <i>the</i> type
@@ -34,6 +36,10 @@ to a given type.  The predicate <tt>typep</tt> may be used to ask
 whether an object belongs to a given type,
 and the function <tt>type-of</tt> returns <i>a</i> type
 to which a given object belongs.
+<P>
+在Common Lisp 中一个数据类型就是一个对象集合。很多Lisp对象属于多个这种集合，所以说询问一个对象的类型并不总是有意思的。
+事实上，我们经常问是否一个对象属于一个给定的类型。谓词<tt>typep</tt>可以用来询问一个对象是否属于一个给定类型。
+函数<tt>type-of</tt>返回给定对象属于的<i>一个</i>类型。
 <P>
 The data types defined in Common Lisp are arranged into a hierarchy (actually
 a partial order) defined by the subset relationship.
@@ -48,6 +54,8 @@ for a complete description of type specifiers.
 The set of all objects is specified
 by the symbol <tt>t</tt>.  The empty data type, which contains no objects, is
 denoted by <tt>nil</tt>.
+<P>
+所有对象的集合用符号<tt>t</tt>来表示。空数据类型(不包含任命对象)用<tt>nil</tt>来表示。
 <P>
 <img align=bottom alt="old_change_begin" src="gif/old_change_begin.gif"><br>
 A type called <tt>common</tt> encompasses all the data
@@ -94,12 +102,17 @@ Floating-point numbers of various ranges and precisions are also
 provided, as well as
 Cartesian complex numbers.
 <P>
+数字有很多形式，简而言之有整数，分数，多种浮点数，直角坐标系下的复数。
+<P>
 <LI>
 <i>Characters</i> represent printed glyphs such as letters
 or text formatting operations.  Strings are one-dimensional
 arrays of characters.
 Common Lisp provides for a rich character set, including ways to
 represent characters of various type styles.
+<P>
+字符(Characters)代表打印的符号如字符或格式化操作。字符串(Strings)是字符的一维数组。
+<br> scinart注：显然不是以\0结尾的。
 <P>
 <LI>
 <i>Symbols</i> (sometimes called <i>atomic symbols</i> for emphasis
@@ -109,6 +122,10 @@ of a string).  Symbols have <i>property lists</i>, which in effect
 allow symbols to be treated as record structures with an extensible
 set of named components, each of which may be any Lisp object.
 Symbols also serve to name functions and variables within programs.
+<P>
+符号，有时为强调或明晰也叫原子符号是named data objects. Lisp提供定位符号的机制(只要以字符串的形式提供名字)。
+符号有<i>属性列表</i>，这事实上可以让符号被视为记录结构。
+详见：<a href="http://acl.readthedocs.org/en/latest/zhCN/ch8-cn.html#property-lists">ANSI Common Lisp 中文版 8.2 属性列表(Property Lists)</a>
 <P>
 <LI>
 <i>Lists</i> are sequences represented in the form of linked cells
@@ -121,6 +138,8 @@ and the <i>cdr</i> is made to point to the previously existing list.
 (Conses may actually be used completely generally as two-element
 record structures, but their most important use is to represent
 lists.)
+<P>
+Lists是链表叫做<i>conses</i>。特殊对象是nil，其他的是由cons递归构造的。
 <P>
 <LI>
 <i>Arrays</i> are dimensioned collections of objects.
@@ -136,31 +155,40 @@ One-dimensional arrays of characters are called <i>strings</i>.
 One-dimensional arrays of bits (that is, of integers whose values are 0 or 1)
 are called <i>bit-vectors</i>.
 <P>
+数组是多维对象集合。....
+<P>
 <LI>
 <i>Hash tables</i> provide an efficient way of mapping any
 Lisp object (a <i>key</i>) to an associated object.
 <P>
+哈希表提供了一个任意Lisp对象(作为key)和相关联对象的映射。
+<P>
 <LI>
 <i>Readtables</i> are used to control the built-in expression parser
 <tt>read</tt>.
+<P>不知道。
 <P>
 <LI>
 <i>Packages</i> are collections of symbols that serve as name spaces.
 The parser recognizes symbols by looking up character sequences
 in the current package.
+<P>包是符号的集合，解析器识别符号通过查看当前包的字符序列。
 <P>
 <LI>
 <i>Pathnames</i> represent names of files in a fairly implementation-independent
 manner.  They are used to interface to the external file system.
+<P>路径名代表一个比较实现无关的文件名。
 <P>
 <LI>
 <i>Streams</i> represent sources or sinks of data, typically characters
 or bytes.  They are used to perform I/O, as well as for internal
 purposes such as parsing strings.
+<P>流代表数据(典型的好字符和字节)的源和汇。它们用来做I/O, 或内部目的如解析字符串。
 <P>
 <LI>
 <i>Random-states</i> are data structures used to encapsulate the state
 of the built-in random-number generator.
+<P>不知道。
 <P>
 <LI>
 <i>Structures</i> are user-defined record structures, objects that

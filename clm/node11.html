@@ -20,14 +20,18 @@
 <A NAME=INTROERRORS>When</A>
 this book specifies that it ``is an error'' for some situation
 to occur, this means that:
+<br> 如果本书说一个情况``出现错误''，这说明：
 <UL><LI> No valid Common Lisp program should cause this situation to occur.
+<br> 任何合法Common Lisp程序不应该引起这种情况发生。
 <P>
 <LI> If this situation occurs, the effects and results are completely
 undefined as far as adherence to the Common Lisp specification is concerned.
+<br> 如果这种情况出现，就Common Lisp规范而言，其影响和结果完全是未定义的。
 <P>
 <LI> No Common Lisp implementation is required to detect such an error.
 Of course, implementors are encouraged to provide for detection
 of such errors wherever reasonable.
+<br> Common Lisp实现是否检测到这种错误不被要求，当然在合理情况下它们被鼓励尽量捕获。
 </UL>
 This is not to say that some particular implementation might not define
 the effects and results for such a situation; the point is that no program
@@ -36,12 +40,16 @@ effects or results.
 <P>
 On the other hand, if it is specified in this book that in some situation
 ``an error is <i>signaled</i>,'' this means that:
+<br> 另一方面，如果本书说在一些情况下``一个错误被产生(an error is <i>signaled</i>)''则说明：
 <UL><LI> If this situation occurs, an error will be signaled
 (see <tt>error</tt> and <tt>cerror</tt>).
+<br> 如果这种情况出现，一个错误被产生。scinart注，等同于java中的throw或ruby中的raise.
 <P>
 <LI> Valid Common Lisp programs may rely on the fact that an error will be signaled.
+<br> 合法Common Lisp程序可以依赖错误产生。
 <P>
 <LI> Every Common Lisp implementation is required to detect such an error.
+<br> 任何Common Lisp实现要求检测该错误。
 </UL>
 <P>
 In places where it is stated that so-and-so ``must'' or ``must not''
@@ -50,6 +58,9 @@ is not met.  For example, if an argument ``must be a symbol,'' then it
 ``is an error'' if the argument is not a symbol.  In all cases where
 an error is to be <i>signaled</i>, the word ``signaled'' is always used
 explicitly in this book.
+<br>
+任何用must, must not, may not的地方如果条件不满足会产生错误。
+本书在错误产生始终显式的用``signaled''标识。
 <P>
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
 X3J13 has adopted a more elaborate terminology for errors,

@@ -187,6 +187,8 @@ of <i>x</i>, and the notation [<i>x</i>] means zero or one occurrence
 of <i>x</i>.  These notations are also used for syntactic
 descriptions expressed as BNF-like productions, as
 in table <A HREF="node189.html#NUMBERSYNTAXTABLE">22-2</A>.
+<br>
+{}仅为了后面接+或*, []表示可选，[a|b]表示a或b，基本上是正则表达式的那一套。
 <P>
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
 Double brackets, <b>[[</b> and <b>]]</b>, indicate that any number of the
@@ -194,6 +196,9 @@ alternatives enclosed may be used, and those used
 may occur in any order, but each
 alternative may be used at most once unless followed by a star.
 For example,
+<br>
+双括号[[x | y | z]]代表[x][y][z]的一个排列。如xy, zyx等。<br>
+[[x {y}* z]]代表[x], {y}*, [z]的一个排列。如z, zyxy等。
 <PRE><TT> <i>p</i> <b>[[</b>x | {y}* | z<b>]]</b> <i>q</i>
 <P>
 </TT></PRE>

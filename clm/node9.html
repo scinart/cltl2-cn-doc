@@ -35,11 +35,13 @@ when it is desirable to emphasize the use of the Boolean ``false''.
 The notation <tt>'nil</tt> (note the explicit quotation mark) is used to emphasize
 the use of a symbol.
 For example:
+<P>
+在Common Lisp中，() '() nil 'nil等效，不同写法仅做强调之用
 <P><pre>
-(defun three () 3)      ;Emphasize empty parameter list <BR>
-(append '() '()) => ()  ;Emphasize use of empty lists <BR>
-(not nil) => t          ;Emphasize use as Boolean ``false'' <BR>
-(get 'nil 'color)       ;Emphasize use as a symbol
+(defun three () 3)      ;Emphasize empty parameter list -- 强调空参数表 <BR>
+(append '() '()) => ()  ;Emphasize use of empty lists -- 强调空表的使用 <BR>
+(not nil) => t          ;Emphasize use as Boolean ``false'' -- 强调布尔值``假'' <BR>
+(get 'nil 'color)       ;Emphasize use as a symbol -- 强调作为symbol
 </pre><P>
 <P>
 Any data object other than <tt>nil</tt> is construed to be Boolean

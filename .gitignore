@@ -1,0 +1,11 @@
+*.gif
+*.pl
+*.txt
+*.log
+*.tex
+*.bak
+*.tgz
+digital_press/
+clm/icons
+clm/gif
+clm/.glimpse*

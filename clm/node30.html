@@ -27,12 +27,18 @@ list is linear in the length of the list; on the other hand, adding a new
 element to the front of a list takes constant time, whereas the same
 operation on an array takes time linear in the length of the array.
 <P>
+  一维数组叫做<i>向量</i>，并组成类型<tt>向量</tt> (因此<tt>向量</tt>类型是<tt>数组</tt>类型的子类型)。
+  向量和表组成<i>序列</i>。它们的区别在于向量的任何元素可以在常数时间内取得，而表的平均取出时间正比于表的长度；
+  另一方面，在表的头部加入新元素花费常数时间，而数组上同样的操作花费时间正比于数组长度。
+<P>
 A general vector (a one-dimensional array
 that can have any data object as an element but that has
 no additional paraphernalia) can be notated by notating the
 components in order, separated by whitespace and surrounded by <tt>#(</tt>
 and <tt>)</tt>.
 For example:
+<P>
+一个通常的向量 (一个一维数组，可以以任何数据对象作为元素但别无其他)可以这样记：&ddarr;
 <P><pre>
 #(a b c)                    ;A vector of length 3 
 #()                         ;An empty vector 

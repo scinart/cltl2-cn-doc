@@ -22,6 +22,8 @@
 to a Cartesian coordinate system.
 In general, these components may be any Lisp data objects.
 <P>
+  一个数组是一个对象，它的成员按笛卡尔坐标系组织起来，通常来说，这些成员可以是任何Lisp对象。
+<P>
 The number of dimensions of an array is called its <i>rank</i>
 (this terminology is borrowed from APL);
 the rank is a non-negative integer.
@@ -29,11 +31,17 @@ Likewise, each dimension is itself a non-negative integer.
 The total number of elements in the array is the product of all the
 dimensions.
 <P>
+  数组的维度数叫做<i>秩</i>(这个术语借用自APL); 秩是一个非负整数。
+  相似的，每个维度也是一个非负整数。数组的元素总数是所有维度之积。
+<P>
 An implementation of Common Lisp may impose a limit on the rank of an array,
 but this limit may not be smaller than 7.  Therefore, any Common Lisp
 program may assume the use of arrays of rank 7 or less.
 (A program may determine the actual limit on array ranks for
 a given implementation by examining the constant <tt>array-rank-limit</tt>.)
+<P>
+  一个Common Lisp 实现可能对数组的维度数加以限制，但些限制不应小于7。所以任何Common Lisp 程序可以使用7维或以下的数组。
+  (一个程序也许可以通过<tt>array-rank-limit</tt>来确定一个实现的数组维度数限制是多少。)
 <P>
 It is permissible for a dimension to be zero.  In this case,
 the array has no elements, and any attempt to access an element
@@ -43,12 +51,18 @@ If the rank is zero, then there are no dimensions, and the
 product of the dimensions is then by definition 1.
 A zero-rank array therefore has a single element.
 <P>
+  一个维度可以是零。在这种情况下，这个数组没有元素，尝试取元素都是一个错误。但是，数组的其他属性，
+  如维度本身，可以使用。如果秩是零，那么它没有维度，所有维度之积被定义为1。一个零秩数组因此有一个元素。
+<P>
 An array element is specified by a sequence of indices.
 The length of the sequence must equal the rank of the array.
 Each index must be a non-negative integer strictly less than
 the corresponding array dimension.  Array indexing is
 therefore zero-origin, not one-origin as in (the default case of)
 Fortran.
+<P>
+  一个数组的元素由一系列下标确定。下标的个数必须等于数组的维度数。
+  每个下标必须是大于等于0小于相应维度的整数。
 <P>
 As an example, suppose that the variable <tt>foo</tt> names a 3-by-5 array.
 Then the first index may be 0, 1, or 2, and the second index
@@ -61,10 +75,17 @@ A zero-rank array has no dimensions, and therefore
 <tt>aref</tt> would take such an array and no indices, and return the sole
 element of the array.
 <P>
+  举个栗子，假定一个变量<tt>foo</tt>是一个3*5的数组。那么第一个下标可以是0, 1, 2。第二个下标可以是0, 1, 2, 3, 4。
+  我们可以用函数<tt>aref</tt>来指向数组元素。例如<tt>(aref foo 2 1)</tt>指数组的第(2, 1)个元素。
+  注意到<tt>aref</tt>接受不确定数量的参数：一个数组，和如同数组的维度数那么多的下标。
+  一个零秩数组没有维度，因此<tt>aref</tt>对它不接受下标，并返回数组的唯一元素。
+<P>
 In general, arrays can be multidimensional,
 can share their contents with other array objects, and can have their
 size altered dynamically (either enlarging or shrinking) after creation.
 A one-dimensional array may also have a <i>fill pointer</i>.
+<P>
+  通常来说，数组经常是多维的，能与其他数组对象共享内容，能在创建后动态地改变大小。一维数组还可能有<i>填充指针</i>。
 <P>
 Multidimensional arrays store their components in row-major order;
 that is, internally a multidimensional array is stored as a one-dimensional
@@ -75,12 +96,19 @@ last index varying fastest.  This is important in two situations:
 (The first situation is a matter of semantics; the second, a matter
 of efficiency.)
 <P>
+  多维数组按行主序存储它们的元素；本质上是按一维数组存储的不解释。在以下两种情况下这很重要：
+  (1) 当不能维度数的数组共享元素时 -- 语义问题
+  (2) 当在虚存中取大数组时 -- 效率问题
+<P>
 An array that is not displaced to another array, has no fill pointer, and
 is not to have its size adjusted dynamically after creation is called a
 <i>simple</i> array.  The user may provide declarations that certain arrays
 will be simple.  Some implementations can handle simple arrays in an
 especially efficient manner; for example, simple arrays may have a more
 compact representation than non-simple arrays.
+<P>
+  一个不由其他数组替代，无填充指针，不动态变化大小的数组叫做简单>数组。用户可以声明数组是简单的。
+  一些实现会更有效的处理简单数组；比如，简单数组可能相对更紧凑。
 <P>
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
 X3J13 voted in June 1989
@@ -90,7 +118,15 @@ and <tt>:displaced-to</tt> arguments is true when <tt>make-array</tt>
 is called, then whether the resulting
 array is simple is unspecified; but if all three arguments are false,
 then the resulting array is guaranteed to be simple.
+<P>
+  X3J13 在 1989年6月投票 (ADJUST-ARRAY-NOT-ADJUSTABLE)   如果调用<tt>make-array</tt>时<tt>:adjustable</tt>, <tt>:fill-pointer</tt>, <tt>:displaced-to</tt>中存在真值那么结果是不是简单数组是不明晰的。但若都是假，则一定是简单数组。
 <br><img align=bottom alt="change_end" src="gif/change_end.gif">
+<P>
+scinart 注：数组的学习材料：
+<br> <a href="http://acl.readthedocs.org/en/latest/zhCN/ch4-cn.html#array">http://acl.readthedocs.org/en/latest/zhCN/ch4-cn.html#array</a>
+<br> <a href="http://blog.csdn.net/keyboardota/article/details/7681756">http://blog.csdn.net/keyboardota/article/details/7681756</a>
+<br> <a href="http://blog.csdn.net/keyboardota/article/details/7708511">http://blog.csdn.net/keyboardota/article/details/7708511</a>
+<br> <a href="http://blog.csdn.net/keyboardota/article/details/7681764">http://blog.csdn.net/keyboardota/article/details/7681764</a>
 <HR>
 <UL> 
 <LI> <A NAME=tex2html1870 HREF="node30.html#SECTION00651000000000000000"> Vectors</A>

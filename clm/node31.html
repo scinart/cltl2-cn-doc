@@ -22,6 +22,8 @@
 string is simply a vector of characters.
 More precisely, a string is a specialized vector whose elements
 are of type <tt>string-char</tt>.
+<P>
+  字符串其实就是字符向量，更准确的说，一个字符串是特殊化的向量，它的元素都是<tt>string-char</tt>类型。
 <br><img align=bottom alt="old_change_end" src="gif/old_change_end.gif">
 <P>
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
@@ -31,6 +33,9 @@ to eliminate the type <tt>string-char</tt> and to redefine the type
 types, the types of whose elements are subtypes of the type <tt>character</tt>.
 Subtypes of <tt>string</tt> include <tt>simple-string</tt>, <tt>base-string</tt>,
 and <tt>simple-base-string</tt>.
+<P>
+  为以取消<tt>string-char</tt>类型和重定义<tt>string</tt>类型为一个或多个特殊化的向量类型。
+  ....没看懂。
 <P>
 <P><pre>
 base-string == (vector base-character) 
@@ -67,15 +72,23 @@ containing the sequence of characters,
 whereas vertical bars indicate a symbol whose name is the contained
 sequence of characters.
 <P>
+  注意到竖线不必前跟用<tt>\</tt>。相似的，用双竖线记法的符号中的双引号也不必前跟<tt>/</tt>。
+  双引号记法和双竖线记法相似但是两码事：双引号指明一个字符串包含这些字符，
+  而双竖线指明一个符号，它的名字是这些字符。
+<P>
 The characters contained by the double quotes, taken from left to right,
 occupy locations within the string with increasing indices.
 The leftmost character is string element number 0, the next one
 is element number 1, the next one is element number 2, and so on.
 <P>
+  从略。
+<P>
 Note that the function <tt>prin1</tt> will print any character vector
 (not just a simple one)
 using this syntax, but the function <tt>read</tt> will always construct
 a simple string when it reads this syntax.
+<P>
+  注意到函数<tt>prin1</tt>总是做这种语法打印任何字符向量，但是函数<tt>read</tt>读到这种语法是会始终构造一个简单字符串。
 <P>
 <BR> <HR><A NAME=tex2html1893 HREF="node32.html"><IMG ALIGN=BOTTOM ALT="next" SRC="icons/next_motif.gif"></A> <A NAME=tex2html1891 HREF="node29.html"><IMG ALIGN=BOTTOM ALT="up" SRC="icons/up_motif.gif"></A> <A NAME=tex2html1885 HREF="node30.html"><IMG ALIGN=BOTTOM ALT="previous" SRC="icons/previous_motif.gif"></A> <A NAME=tex2html1895 HREF="node1.html"><IMG ALIGN=BOTTOM ALT="contents" SRC="icons/contents_motif.gif"></A> <A NAME=tex2html1896 HREF="index.html"><IMG ALIGN=BOTTOM ALT="index" SRC="icons/index_motif.gif"></A> <BR>
 <B> Next:</B> <A NAME=tex2html1894 HREF="node32.html"> Bit-Vectors</A>

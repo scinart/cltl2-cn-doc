@@ -125,6 +125,7 @@ Symbols also serve to name functions and variables within programs.
 <P>
 符号，有时为强调或明晰也叫原子符号是named data objects. Lisp提供定位符号的机制(只要以字符串的形式提供名字)。
 符号有<i>属性列表</i>，这事实上可以让符号被视为记录结构。
+scinart 注：
 详见：<a href="http://acl.readthedocs.org/en/latest/zhCN/ch8-cn.html#property-lists">ANSI Common Lisp 中文版 8.2 属性列表(Property Lists)</a>
 <P>
 <LI>
@@ -155,7 +156,13 @@ One-dimensional arrays of characters are called <i>strings</i>.
 One-dimensional arrays of bits (that is, of integers whose values are 0 or 1)
 are called <i>bit-vectors</i>.
 <P>
-数组是多维对象集合。....
+  数组是多维对象集合。
+  数组可以有任意非负整数个维度并由整数序列索引。一个数组的元素可能是任意Lisp对象； 
+  一些为效率而特殊化了的数组只能持有相应的Lisp对象。
+  两个数组(也许维度信息不一样)是有可能共享一些元素的(所以改变一个数组也改变了另一个)，通过一个由另一个<i>替代</i>的方式。
+  一维数组叫作<i>向量</i>。
+  一维字符数组叫做<i>字符串</i>。
+  一维位数组叫做<i>位向量</i>。
 <P>
 <LI>
 <i>Hash tables</i> provide an efficient way of mapping any
@@ -167,6 +174,7 @@ Lisp object (a <i>key</i>) to an associated object.
 <i>Readtables</i> are used to control the built-in expression parser
 <tt>read</tt>.
 <P>不知道。
+....
 <P>
 <LI>
 <i>Packages</i> are collections of symbols that serve as name spaces.
@@ -189,6 +197,7 @@ purposes such as parsing strings.
 <i>Random-states</i> are data structures used to encapsulate the state
 of the built-in random-number generator.
 <P>不知道。
+....
 <P>
 <LI>
 <i>Structures</i> are user-defined record structures, objects that

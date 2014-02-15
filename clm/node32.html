@@ -21,6 +21,8 @@ A bit-vector can be written as the sequence of bits contained in the
 string, preceded by <tt>#*</tt>; any delimiter character, such as whitespace,
 will terminate the bit-vector syntax.
 For example:
+<P>
+一个位向量可能这样写&ddarr;
 <P><pre>
 #*10110     ;A five-bit bit-vector; bit 0 is a 1 
 #*          ;An empty bit-vector
@@ -30,9 +32,13 @@ occupy locations within the bit-vector with increasing indices.
 The leftmost notated bit is bit-vector element number 0, the next one
 is element number 1, and so on.
 <P>
+最左是位向量第一个元素，依此类推。
+<P>
 The function <tt>prin1</tt> will print any bit-vector (not just a simple one)
 using this syntax, but the function <tt>read</tt> will always construct
 a simple bit-vector when it reads this syntax.
+<P>
+  函数<tt>prin1</tt>会用这种语法打印任何位向量。但是函数<tt>read</tt>读到这种方法时总是构造一个简单位向量。
 <P>
 <HR>
 <P><ADDRESS>

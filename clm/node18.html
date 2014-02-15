@@ -33,26 +33,35 @@ ratios in non-canonical (unreduced) forms, such as <tt>4/6</tt>, but the
 Lisp function <tt>prin1</tt> always prints the canonical form for a
 ratio.
 <P>
+  A <i>ratio</i>代表两数之比。整数和分数组成有理数类型。有理数的正规表示是整数或已约分数。
+  Lisp function <tt>prin1</tt>始终打印分数的正规形式。
+<P>
 If any computation produces a result that is a ratio of
 two integers such that the denominator evenly divides the
 numerator, then the result is immediately converted to the equivalent
 integer.  This is called the rule of <i>rational canonicalization</i>.
 <P>
+在任何计算中如果结果是分数又不是最简分数，结果会立即转化成整数。这条规则叫做<i>有理数正规化</i>
+<P>
 Rational numbers may be written as the possibly signed quotient of
 decimal numerals: an optional sign followed by two non-empty sequences of
 digits separated by a <tt>/</tt>.  This syntax may be described as
 follows:
+<P>
+有理数可以被写成如下形式：
 <PRE><TT> <i>ratio</i> ::= [<i>sign</i>] {<i>digit</i>}+ <tt>/</tt> {<i>digit</i>}+
 <P>
 </TT></PRE>
 The second sequence may not consist
 entirely of zeros.
 For example:
+<P>
+第二个序列不能完全由0组成。例如：
 <P><pre>
 2/3                 ;This is in canonical form 
 4/6                 ;A non-canonical form for the same number 
 -17/23              ;A not very interesting ratio 
--30517578125/32768  ;This is <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap40209.gif"> 
+-30517578125/32768  ;This is <IMG ALIGN=BOTTOM ALT="(-5/2)^15" SRC="_24769_tex2html_wrap40209.gif"> 
 10/5                ;The canonical form for this is <tt>2</tt>
 </pre>
 <P>
@@ -60,6 +69,8 @@ To notate rational numbers in radices other than ten,
 one uses the same radix specifiers
 (one of <tt>#<i>nn</i>R</tt>, <tt>#O</tt>, <tt>#B</tt>, or <tt>#X</tt>) as for integers.
 For example:
+<P>
+若要记其他进制的有理数，用以下记法之一（<tt>#<i>nn</i>R</tt>, <tt>#O</tt>, <tt>#B</tt>, 或 <tt>#X</tt>），例如：
 <P><pre>
 #o-101/75         ;Octal notation for <tt>-65/61</tt> 
 #3r120/21         ;Ternary notation for <tt>15/7</tt> 

@@ -27,6 +27,10 @@ symbol itself.  (More precisely, symbols are organized into
 <i>packages</i>, and all the symbols in a package are uniquely
 identified by name.  See chapter <A HREF="node111.html#XPACK">11</A>.)
 <P>
+  符号是Lisp数据对象，它有多种目的，有多个有趣的特性。每个<tt>symbol</tt>对象有一个name，叫<i>print name</i>。
+  给定一个symbol, 我们可以获得它名字的字符串。相反的，给定符号的名字字符串，我们可以获得符号。
+  （更详细的说，符号组织在<i>包</i>中，一个包中的所有符号由名字唯一指定。见第11章）
+<P>
 Symbols have a component called the <i>property list</i>, or <i>plist</i>.
 By convention this is always a list whose even-numbered
 components (calling the first component zero) are symbols,
@@ -34,6 +38,9 @@ here functioning as property names, and whose odd-numbered components
 are associated property values.  Functions are provided for manipulating
 this property list; in effect, these allow a symbol to be treated as an
 extensible record structure.
+<P>
+  符号有一个部分中叫做<i>属性列表</i>，或<i>plist</i>。根据惯例，偶数元素是符号，作为属性名字，奇数元素是关联的属性值。
+  有操作这个属性列表的函数，事实上，这些允许符号被视为可扩展的记录结构。
 <P>
 Symbols are also used to represent certain kinds of variables in Lisp
 programs, and there are functions for dealing with the values associated
@@ -66,6 +73,7 @@ file.rel.43     ;This symbol has periods in its name
 In addition to letters and numbers, the following characters are normally
 considered to be alphabetic for the purposes of notating
 symbols:
+<P>除了字母和数字，下列字符通常在表示符号时被视为字母。
 <P><pre>
 +  -  *  /  @  $  %  ^  &amp;  _  =  &lt;  &gt;  ~  .
 </pre><P>

@@ -23,7 +23,10 @@
 or <tt>apply</tt> function, and is
 to be executed as code when arguments are supplied.
 <P>
+  函数是可以是任何东西，只要给<tt>funcall</tt>和<tt>apply</tt>给正确，并且给参数能作为代码执行。
+<P>
 A <i>compiled-function</i> is a compiled code object.
+<P> 一个编译过的函数一个编译过的代码对象。
 <P>
 A lambda-expression
 (a list whose <i>car</i> is the symbol <tt>lambda</tt>) may serve as a function.
@@ -32,12 +35,19 @@ serve as functions.  For example, an implementation might choose to
 represent a ``lexical closure'' as a list whose <i>car</i> contains some
 special marker.
 <P>
+  一个lambda表达式（一个其<i>car</i>是符号<tt>lambda</tt>表）可能（也可能不）作为函数。
+  依赖实现，其它列表也可能作为函数。比如，一个实现可能用一个表代表词法闭包，它的<i>car</i>有特殊标记。
+<P>
 A symbol may serve as a function; an attempt to invoke a symbol as a function
 causes the contents of the symbol's function cell to be used.
 See <tt>symbol-function</tt> and <tt>defun</tt>.
 <P>
+  一个符号也可能作为函数，若将符号作为函数使用，将使用符号函数单元的内容，见<tt>symbol-function</tt> 和 <tt>defun</tt>。
+<P>
 The result of evaluating a <tt>function</tt> special form
 will always be a function.
+<P>
+对函数的求值始终是函数。
 <br><img align=bottom alt="old_change_end" src="gif/old_change_end.gif">
 <P>
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
@@ -53,10 +63,18 @@ functions include <tt>funcall</tt>, <tt>apply</tt>, and <tt>mapcar</tt>.
 Such functions do not, however, accept a lambda-expression as a functional
 argument; therefore one may not write
 <P>
+  X3J13 在1988年六月投票修订这些规格。函数类型脱离于<tt>cons</tt>和<tt>symbol</tt>，
+  所以<i>car</i>是<tt>lambda</tt>的表确切的讲不是函数类型，也不是什么符号。
+  不过，接受函数参数标准Common Lisp 函数接受一个符号或<i>car</i>是<tt>lambda</tt>的表并自动强制转换成一个函数。
+  这样的标准函数包括<tt>funcall</tt>, <tt>apply</tt>, and <tt>mapcar</tt>。
+  这些函数却不接受一个λ表达式作为函数参数，所以我们不能写
+  <br><strong>这里我译晕了啊，不说mapcar接受a list whose <i>car</i> is <tt>lambda</tt>么？求帮助。....</strong>
+<P>
 <P><pre>
 (mapcar '(lambda (x y) (sqrt (* x y))) p q)
 </pre><P>
 but instead one must write something like
+<P>而是必须写像这种东西&darr;
 <P><pre>
 (mapcar #'(lambda (x y) (sqrt (* x y))) p q)
 </pre><P>
@@ -66,6 +84,7 @@ as a list whose <i>car</i> is some special marker.
 <P>
 The value of a <tt>function</tt> special form
 will always be of type <tt>function</tt>.
+<P> 函数的值始终是函数。
 <br><img align=bottom alt="change_end" src="gif/change_end.gif">
 <P>
 <BR> <HR><A NAME=tex2html1999 HREF="node41.html"><IMG ALIGN=BOTTOM ALT="next" SRC="icons/next_motif.gif"></A> <A NAME=tex2html1997 HREF="node15.html"><IMG ALIGN=BOTTOM ALT="up" SRC="icons/up_motif.gif"></A> <A NAME=tex2html1991 HREF="node39.html"><IMG ALIGN=BOTTOM ALT="previous" SRC="icons/previous_motif.gif"></A> <A NAME=tex2html2001 HREF="node1.html"><IMG ALIGN=BOTTOM ALT="contents" SRC="icons/contents_motif.gif"></A> <A NAME=tex2html2002 HREF="index.html"><IMG ALIGN=BOTTOM ALT="index" SRC="icons/index_motif.gif"></A> <BR>

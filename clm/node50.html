@@ -20,6 +20,7 @@
 The following type specifiers are, for the most part,
 abbreviations for other type specifiers that would be far too
 verbose to write out explicitly (using, for example, <tt>member</tt>).
+<BR> 下列类型标识符大部分是其他类型标识符的缩写。
 <P>
 <DL COMPACT><DT><tt>(integer <i>low</i> <i>high</i>)</tt>
 <DD>
@@ -36,12 +37,15 @@ values of <i>smallest</i> and <i>largest</i>
 (see <tt>most-negative-fixnum</tt> and <tt>most-positive-fixnum</tt>).
 The type <tt>(integer 0 1)</tt>
 is so useful that it has the special name <tt>bit</tt>.
+<br> 从<i>low</i>到<i>high</i>的整数，其中<i>low</i> 和 <i>high</i>必须是整数或一个整数组成的表或未指明。
+如果是整数就是闭区间，一个整数的表是开区间，<tt>*</tt>是无界。<tt>fixnum</tt>类型就是 <tt>(integer <i>smallest</i> <i>largest</i>)</tt> ， 其中 <i>smallest</i> 和 <i>largest</i> 是实现相关的，(见 <tt>most-negative-fixnum</tt> and <tt>most-positive-fixnum</tt>)。
 <P>
 <DT><tt>(mod <i>n</i>)</tt>
 <DD>
 Denotes the set of non-negative integers less than <i>n</i>.
 This is equivalent to <tt>(integer 0 <i>n</i>-1)</tt>
 or to <tt>(integer 0 (<i>n</i>))</tt>.
+<br> 等同于<tt>(integer 0 (<i>n</i>))</tt>
 <P>
 <DT><tt>(signed-byte <i>s</i>)</tt>
 <DD>
@@ -50,6 +54,7 @@ in two's-complement form in a byte of <i>s</i> bits.  This is
 equivalent to
 <tt>(integer <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap40311.gif"> <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap40313.gif">)</tt>.
 Simply <tt>signed-byte</tt> or <tt>(signed-byte *)</tt> is the same as <tt>integer</tt>.
+<BR> 等同于<code>(integer -2<sup>s</sup>-1 2<sup>s-1</sup>-1)</code>
 <P>
 <DT><tt>(unsigned-byte <i>s</i>)</tt>
 <DD>
@@ -58,6 +63,7 @@ represented in a byte of <i>s</i> bits.  This is equivalent to <tt>(mod
 <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap40315.gif">)</tt>, that is, <tt>(integer 0 <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap40317.gif">)</tt>.
 Simply <tt>unsigned-byte</tt> or <tt>(unsigned-byte *)</tt> is the same as
 <tt>(integer 0 *)</tt>, the set of non-negative integers.
+<BR> 等同于<code>(integer 0 2<sup>s</sup>-1)</code>
 <P>
 <DT><tt>(rational <i>low</i> <i>high</i>)</tt>
 <DD>
@@ -68,6 +74,7 @@ A rational is an inclusive limit,
 a list of a rational is an exclusive limit, and
 <tt>*</tt> means that a limit does not exist
 and so effectively denotes minus or plus infinity, respectively.
+<br> 意义与<tt>(integer <i>low</i> <i>high</i>)</tt>相同。
 <P>
 <DT><tt>(float <i>low</i> <i>high</i>)</tt>
 <DD>
@@ -78,10 +85,12 @@ or unspecified; a floating-point number is an inclusive limit, a list of a
 floating-point number is an exclusive limit, and
 <tt>*</tt> means that a limit does not exist
 and so effectively denotes minus or plus infinity, respectively.
+<br> 意义与<tt>(integer <i>low</i> <i>high</i>)</tt>相同。
 <P>
 In a similar manner, one may use:
 <P><pre>
 (short-float <i>low</i> <i>high</i>) <BR>(single-float <i>low</i> <i>high</i>) <BR>(double-float <i>low</i> <i>high</i>) <BR>(long-float <i>low</i> <i>high</i>)
+<br> 意义与<tt>(integer <i>low</i> <i>high</i>)</tt>相同。
 </pre><P>
 In this case, if a limit is a floating-point
 number (or a list of one), it must be one of the appropriate format.
@@ -101,6 +110,7 @@ A real is an inclusive limit,
 a list of a real is an exclusive limit, and
 <tt>*</tt> means that a limit does not exist
 and so effectively denotes minus or plus infinity, respectively.
+<br> 意义与<tt>(integer <i>low</i> <i>high</i>)</tt>相同。
 <P>
 </DL>
 <img align=bottom alt="change_end" src="gif/change_end.gif">
@@ -135,6 +145,7 @@ types, the types of whose elements are subtypes of the type <tt>character</tt>.
 Means the same as
 <tt>(vector base-character <i>size</i>)</tt>: the set of base
 strings of the indicated size.
+<BR> 等效于<tt>(vector base-character <i>size</i>)</tt>
 <P>
 
 <P>
@@ -143,6 +154,7 @@ strings of the indicated size.
 Means the same
 as <tt>(simple-array base-character (<i>size</i>))</tt>: the set of simple base
 strings of the indicated size.
+<BR> 等效于<tt>(simple-array base-character <i>size</i>)</tt>
 <P>
 </DL>
 <img align=bottom alt="change_end" src="gif/change_end.gif">
@@ -151,12 +163,14 @@ strings of the indicated size.
 <DD>
 Means the same as <tt>(array bit (<i>size</i>))</tt>:
 the set of bit-vectors of the indicated size.
+<BR> 等效于<tt>(array bit (<i>size</i>))</tt>
 <P>
 <DT><tt>(simple-bit-vector <i>size</i>)</tt>
 <DD>
 This means the same as
 <tt>(simple-array bit (<i>size</i>))</tt>: the set of bit-vectors of
 the indicated size.
+<BR> 等效于<tt>(simple-array bit (<i>size</i>))</tt>
 <P>
  </DL>
 <P>

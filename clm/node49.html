@@ -25,6 +25,10 @@ implementation.  As an example, consider the type <tt>(array short-float)</tt>.
 Implementation A may choose to provide a specialized representation
 for arrays of short floating-point numbers, and implementation B
 may choose not to.
+<br>
+一些类型标识符表表示由符号表示的数据类型的具象(<i>specializations</i>)。
+这些具象可能在实现中更高效的表现体现出来。
+比如，考虑<tt>(array short-float)</tt>类型，实现A可能提供专一表示短浮点数组的东西，实现B就可能没有。
 <P>
 If you should want to create an array for the
 express purpose of holding only short-float objects, you may
@@ -36,11 +40,19 @@ representation capable of holding short-floats that the implementation
 can provide.''  Implementation A will then produce a specialized
 array of type <tt>(array short-float)</tt>, and implementation B
 will produce an ordinary array of type <tt>(array t)</tt>.
+<BR>
+如果你想创建一个只容纳短浮点数数组，你可以设<tt>make-array</tt>的元素类型是<tt>short-float</tt>。
+这并不是要求<tt>make-array</tt>创建<tt>(array short-float)</tt>类型的数组，这只是允许它创建这样的数组。
+更好的理解是：产生一个实现能提供的针对容纳短浮点数的最具象化的结构。
+实现A就会产生<tt>(array short-float)</tt>类型的数组，实现B就会产生普通的<tt>(array t)</tt>类型的数组。
 <P>
 If one were then to ask whether the array were actually of type
 <tt>(array short-float)</tt>, implementation A would say ``yes,'' but
 implementation B would say ``no.''  This is a property of <tt>make-array</tt>
 and similar functions: what you ask for is not necessarily what you get.
+<BR>
+如果要问数组究竟是不是<tt>(array short-float)</tt>类型的数组，实现A会说：是的。实现B会说，no.
+这是<tt>make-array</tt>的相似函数的性质：所求未必所得。
 <P>
 <img align=bottom alt="old_change_begin" src="gif/old_change_begin.gif"><br>
 Types can therefore be used for two different purposes:
@@ -85,6 +97,7 @@ may be used only for declaration, the symbol form (simply the name
 <br><img align=bottom alt="change_end" src="gif/change_end.gif">
 <P>
 The valid list-format names for data types are as follows:
+<BR> 有效的表形式的数据类型如下：
 <DL COMPACT><DT><tt>(array <i>element-type</i> <i>dimensions</i>)</tt>
 <DD>
 This denotes the set
@@ -122,14 +135,21 @@ set of all arrays that can hold characters but rather the set of
 arrays that are specialized to hold precisely characters and no
 other objects.  To test whether an array <tt>foo</tt> can hold a character,
 one should not use
+<BR>
+注意到<tt>(array t)</tt>是<tt>(array *)</tt>的真子集。
+前者是有能力容下任何东西的数组。后者是任何数组，包括没有能力容下任何东西的数组，如<tt>(array character)</tt>。
+注意到<tt>(array character)</tt>和<tt>(array t)</tt>没有交集，因为<tt>(array character)</tt>不是有能力容下字符的数组，而是仅仅容纳字符的数组。
+要测试一个数组能否容下字符，我们不应该用
 <P><pre>
 (typep foo '(array character))
 </pre><P>
 but rather
+<br>而要用
 <P><pre>
 (subtypep 'character (array-element-type foo))
 </pre><P>
 See <tt>array-element-type</tt>.
+<br> 见<tt>array-element-type</tt>。
 <p>
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
 X3J13 voted in January 1989
@@ -144,16 +164,22 @@ Under this interpretation <tt>(array character)</tt> might be
 the same type as <tt>(array t)</tt>
 (although it also might not be the same).
 See <tt>upgraded-array-element-type</tt>.
+<br>
+X3J13投票通过....啥啥啥没看懂。
+<P>
 However,
+<br> 但是，
 <P><pre>
 (typep foo '(array character))
 </pre><P>
 is still not a legitimate test of whether the array
 <tt>foo</tt> can hold a character; one must still say
+<BR> 仍然不是测试一个数组是否能容下字符的有效测试。我们还是要使用
 <P><pre>
 (subtypep 'character (array-element-type foo))
 </pre><P>
 to determine that question.
+<br>来确定这个问题。
 <P>
 X3J13 also voted in January 1989
 (DECLARE-ARRAY-TYPE-ELEMENT-REFERENCES) <A NAME=2298>&#160;</A> 
@@ -211,6 +237,7 @@ This is equivalent
 to <tt>(array <i>element-type</i> <i>dimensions</i>)</tt> except that it additionally
 specifies that objects of the type are <i>simple</i> arrays
 (see section <A HREF="node29.html#ARRAYTYPESECTION">2.5</A>).
+<br> 除了显式指明是<i>simple</i>，其他同<tt>(array <i>element-type</i> <i>dimensions</i>)</tt>。
 <P>
 <DT><tt>(vector <i>element-type</i> <i>size</i>)</tt>
 <DD>
@@ -218,6 +245,7 @@ This denotes the set of
 specialized one-dimensional arrays whose elements are all of type <i>element-type</i> and whose lengths match <i>size</i>.  This is entirely equivalent to
 <tt>(array <i>element-type</i> (<i>size</i>))</tt>.
 For example:
+<br> 完全等同于<tt>(array <i>element-type</i> (<i>size</i>))</tt>，如：
 <P><PRE>
 (vector double-float)     ;Vectors of double-format <BR>                          ; floating-point numbers <BR>(vector * 5)              ;Vectors of length 5 <BR>(vector t 5)              ;General vectors of length 5 <BR>(vector (mod 32) *)       ;Vectors of integers between 0 and 31
 </PRE><P>

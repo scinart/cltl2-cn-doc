@@ -22,6 +22,8 @@ table <A HREF="node45.html#TYPESYMBOLSTABLE">4-1</A>.
 In addition, when a structure type is defined using <tt>defstruct</tt>,
 the name of the structure type becomes a valid type symbol.
 <P>
+  类型标识符符号是系统定义的，如表4-1所示。此外，用<tt>defstruct</tt>定义的结构类型也是合法的类型标识符符号。
+<P>
 
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
 <i>Notice of correction.</i>
@@ -35,22 +37,71 @@ X3J13 voted in March 1989 (COMMON-TYPE) <A NAME=2067>&#160;</A>
 to eliminate the type <tt>common</tt>; this fact is indicated by the brackets around
 the <tt>common</tt> type specifier in the table.
 <P>
+  X3J13投票决定取消<tt>common</tt>类型，在下表中用[]标注。
+<P>
 X3J13 voted in March 1989 (CHARACTER-PROPOSAL) <A NAME=2070>&#160;</A> 
 to eliminate the type <tt>string-char</tt>;
 this fact is indicated by the brackets around
 the <tt>string-char</tt> type specifier in the table.
 <P>
+  X3J13投票决定取消<tt>string-char</tt>类型，在下表中用[]标注。
+<P>
 X3J13 voted in March 1989 (CHARACTER-PROPOSAL) <A NAME=2073>&#160;</A> 
 to add the type <tt>extended-character</tt> and the type <tt>base-character</tt>.
+<P>
+  X3J13投票决定增加<tt>extended-character</tt>和<tt>base-character</tt>类型。
 <P>
 X3J13 voted in March 1989 (REAL-NUMBER-TYPE) <A NAME=2076>&#160;</A> 
 to add the type specifier <tt>real</tt>.
 <P>
+  X3J13投票决定增加<tt>real</tt>类型。
+<P>
 X3J13 votes have also implicitly added
 many other type specifiers as names of classes (see chapter <A HREF="node260.html#CLOS">28</A>)
 or of conditions (see chapter <A HREF="node312.html#CONDITION">29</A>).
+<P>
+  X3J13的投票还隐式的增加了很多类型标识符作为类的名字(见第28章)或状况的名字(见第29章)。
 <br><img align=bottom alt="change_end" src="gif/change_end.gif">
 <P>
+<script>
+    var i = 0;
+    var bg = null;
+    var color = null;
+    var typ = new Array("array", "atom", "base-character", "extended-character", "bignum", "bit", "bit-vector", "character", "compiled-function","[common]", "complex", "cons", "double-float", "fixnum", "float", "function", "hash-table", "integer", "keyword", "list", "long-float", "nil", "null", "number", "package", "pathname", "random-state", "ratio", "rational", "readtable", "real", "sequence", "short-float", "signed-byte", "simple-array", "simple-bit-vector", "simple-string", "simple-vector", "single-float", "standard-char", "stream", "string", "[string-char]", "symbol","t","unsigned-byte", "vector");
+    var ttt=typ.length;
+    var w = 4;
+    var h=Math.floor((ttt+w-1)/w);
+    var residue=ttt%w;
+    document.write('<table border="1" width="500">');
+    document.write('<caption>Table 4-1: Stardard Type Specifier Symbols 现在的版本</caption>');
+    while(i < ttt){
+        if(i % w == 0){
+            if(i % (2 * w) == 0)
+                bg="#cccccc";
+            else
+                bg="#ffffff";
+            document.write('<tr align=left bgcolor='+ bg +'>');
+        }
+	var row=Math.floor(i/w);
+	var col=i%w;
+	var j;
+        if (col>=residue)
+        {
+            j = (i%w*(h-1)+residue+row);
+        }
+        else
+        {
+            j=(i%w*h+row);
+        }
+        document.write('<td>' + typ[j] + '</td>');
+        i++;
+        if(i % w == 0){
+            document.write('</tr>');
+        }
+    }
+    document.write('</table>');            
+</script>
+<br>
 <A NAME=TYPESYMBOLSTABLE>&#160;</A><IMG ALIGN=BOTTOM ALT="" SRC="_24769_table2096.gif">
 
 

@@ -26,12 +26,16 @@ of the form.  The empty list <tt>()</tt>, which is also the false value <tt>nil<
 is also a self-evaluating form: the value of <tt>nil</tt> is <tt>nil</tt>.
 Keywords (symbols written with a leading colon) also evaluate
 to themselves: the value of <tt>:start</tt> is <tt>:start</tt>.
+<br>
+所有数字，字符，字符串，位向量都是<i>自求值</i>的。当它们被求值时，被求值的对象(若是字符数字则是其拷贝)作为返回值。
+空表 <tt>()</tt>， 也即布尔假 <tt>nil</tt>， 也是自求值的。关键字也是自求值的。
 <P>
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
 X3J13 voted in January 1989 (CONSTANT-MODIFICATION) <A NAME=2982>&#160;</A>  to clarify that
 it is an error to destructively modify any object that appears as a constant
 in executable code, whether as
 a self-evaluating form or within a <tt>quote</tt> special form.
+<BR> X3J13投票声明在代码中破坏性的改变任何看起来是常量(不管是自求值form还是<tt>quote</tt>特殊形式中的东西)都是一个错误。
 <br><img align=bottom alt="change_end" src="gif/change_end.gif">
 <P>
 <HR>

@@ -31,6 +31,14 @@ A function that does return may produce no value or several values;
 see <tt>values</tt>.
 If and when the function returns, whatever values it returns
 become the values of the function-call form.
+<BR>
+若要被求值的表的第一个元素不是特殊形式(special form)或宏，那么就假定这个表是一个<i>函数调用</i>。
+表的第一个元素作为函数名字。其余任何元素是待求值的形式(form)；每个待求形式(form)产生一个值用作函数<i>参数</i>。
+函数调用通常产生一个值，但也可能
+call for a non-local exit (怎么翻译?....)
+见 <tt>throw</tt>.
+一个有返回的函数可能不返回值，也可能返回多个值，见 <tt>values</tt>.
+若函数返回，不管返回什么都将作为函数调用这个形式(form)的值。
 <P>
 For example, consider the evaluation of the form <tt>(+ 3 (* 4 5))</tt>.
 The symbol <tt>+</tt> names the addition function, not a special form or macro.
@@ -42,6 +50,9 @@ Therefore the forms <tt>4</tt> and <tt>5</tt> are evaluated, producing arguments
 calculates the number <tt>20</tt> and returns it.  The values <tt>3</tt> and <tt>20</tt>
 are then given as arguments to the addition function, which calculates
 and returns the number <tt>23</tt>.  Therefore we say <tt>(+ 3 (* 4 5)) => 23</tt>.
+<BR>
+比如，考虑形式(form) <tt>(+ 3 (* 4 5))</tt> 的求值。
+略....
 <P>
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
 X3J13 voted in October 1988 (FUNCTION-CALL-EVALUATION-ORDER) <A NAME=3166>&#160;</A> 

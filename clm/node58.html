@@ -26,6 +26,10 @@ as by <tt>let</tt>.
 Any program construct that binds a variable effectively saves the old
 value of the variable and causes it to have a new value, and on exit from
 the construct the old value is reinstated.
+<br>
+在Common Lisp 中符号被用作变量的名字。当一个符号被作为一个form求值时，得到它命名的变量的值。
+比如，在<tt>(setq items 3)</tt>， 即把值<tt>3</tt>给了用<tt>items</tt>命名的变量，之后，<tt>items</tt> => <tt>3</tt>.
+变量可以被<i>赋值</i>，如通过<tt>setq</tt>，或<i>绑定</i>，如通过<tt>let</tt>.
 <P>
 There are actually two kinds of variables in Common Lisp, called <i>lexical</i> (or
 <i>static</i>) variables and <i>special</i> (or <i>dynamic</i>) variables.
@@ -37,6 +41,11 @@ construct that creates a <i>binding</i> for a variable of the same name,
 then the reference is to the variable specified by the binding;
 if no such program construct textually contains the reference, then
 it is taken to refer to the special variable of that name.
+<BR>
+Common Lisp 中有两种变量，叫做词法变量和特殊变量，(以下改用静态变量和动态变量翻译。)。
+在任何时刻有相同名字的两者之一或两者都可能存在并有一个值。
+当一个符号被求值时是那种变量取决于求值上下文。
+通常来说如果上下文在有符号的<i>绑定</i>，那就由绑定确定；如果没有，那就是那个名字的动态变量。
 <P>
 The distinction between the two kinds of variable is one of scope
 and extent.  A lexically bound variable can be referred to <i>only</i>
@@ -51,12 +60,19 @@ binding continues to exist as long as the possibility of reference
 remains).  Conversely, dynamic binding of variables imposes a temporal
 limitation on occurrences of references (but no spatial limitation).
 For more information on scope and extent, see chapter <A HREF="node43.html#SCOPE">3</A>.
+<BR>
+二者的区别是作用域和存在时间。静态变量只在绑定它的程序中的form中使用。
+动态变量可以在从绑定起到它的构造终止止中的任何时间引用。
+所以动态变量有空间限制(出现位置受限)而时间不限。相反动态变量时间受限而空间不受限。
+见第3章。
 <P>
 The value a special variable has when there are currently
 no bindings of that variable is called the <i>global</i> value of the
 (special) variable.
 A global value can be given to a variable only by assignment,
 because a value given by binding is by definition not global.
+<BR>
+动态变量(且现在没有绑定)的值叫做动态变量的全局值。
 <P>
 It is possible for a special variable to have no value at all,
 in which case it is said to be <i>unbound</i>.
@@ -70,6 +86,11 @@ function <tt>makunbound</tt>.  In this situation the variable
 is also said to be ``unbound,'' although this is a misnomer;
 precisely speaking, it is bound but valueless.
 It is an error to refer to a variable that is unbound.
+<BR>
+动态变量可能根本没有值，这种情况叫做<i>未绑定</i>。
+默认情况下所有全局变量是未绑定的，除非它被显式赋值，当然本书定义的变量和实现相关的变量在Lisp系统启动时就有值了。
+在特殊变量绑定建立之后也可以通过<tt>makunbound</tt>变成无值的，这种情况变量也叫未绑定，虽然这是一个误称。
+严格地说，变量被绑定了，但是没有值。引用未绑定变量的值是一个错误。
 <P>
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
 X3J13 voted in June 1989 (UNDEFINED-VARIABLES-AND-FUNCTIONS) <A NAME=3008>&#160;</A> 
@@ -133,6 +154,12 @@ using <tt>defconstant</tt> again).  Keyword symbols,
 which are notated with a leading colon, are reserved and
 may never be assigned to or bound; a keyword always evaluates
 to itself.
+<BR>
+一些全局变量被作为常量保留。它们有全局值并也许不能被绑定或赋值。
+比如，符号 <tt>t</tt> 和 <tt>nil</tt> 被保留且不能被赋值或绑定。
+全局变量 <tt>t</tt> 的值始终是 <tt>t</tt>, 全局变量 <tt>nil</tt> 的值始终是 <tt>nil</tt>.  
+<tt>defconstant</tt> 定义的常量符号也被保留而不能赋值或绑定 (如有需要可能用<tt>defconstant</tt>再次定义)。
+关键字符号被保留，绝不能赋值或绑定，它们求值始终等于自身。
 <P>
 <BR> <HR><A NAME=tex2html2239 HREF="node59.html"><IMG ALIGN=BOTTOM ALT="next" SRC="icons/next_motif.gif"></A> <A NAME=tex2html2237 HREF="node56.html"><IMG ALIGN=BOTTOM ALT="up" SRC="icons/up_motif.gif"></A> <A NAME=tex2html2231 HREF="node57.html"><IMG ALIGN=BOTTOM ALT="previous" SRC="icons/previous_motif.gif"></A> <A NAME=tex2html2241 HREF="node1.html"><IMG ALIGN=BOTTOM ALT="contents" SRC="icons/contents_motif.gif"></A> <A NAME=tex2html2242 HREF="index.html"><IMG ALIGN=BOTTOM ALT="index" SRC="icons/index_motif.gif"></A> <BR>
 <B> Next:</B> <A NAME=tex2html2240 HREF="node59.html"> Special Forms</A>

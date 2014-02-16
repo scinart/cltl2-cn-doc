@@ -22,20 +22,34 @@ the first element of the list.  If the first element is one of
 the symbols appearing in table <A HREF="node59.html#SPECIALFORMTABLE">5-1</A>,
 then the list is called a <i>special form</i>.  (This use of the word
 ``special'' is unrelated to its use in the phrase ``special variable.'')
+<BR>
+如果一个表作为一个form被求值，第一步是检查它的第一个元素。如果它是下列符号之一，这个表就叫<i>特殊形式 (special form)</i>。
+(此处``特殊''与``特殊变量''的特殊无关)
 <P>
 Special forms are generally environment and control constructs.
 Every special form has its own idiosyncratic syntax.  An example
 is the <tt>if</tt> special form:
 <tt>(if p (+ x 4) 5)</tt> in Common Lisp means what
 ``<b>if</b> <i>p</i> <b>then</b> <i>x</i>+4 <b>else</b> 5'' means in Algol.
+<BR>
+特殊形式(special form)通常是环境和控制部分。每个特殊形式(special form)都有自己的特殊语法。
+如 <tt>if</tt>特殊形式 <tt>(if p (+ x 4) 5)</tt> 在Common Lisp 的意义等于
+``<b>if</b> <i>p</i> <b>then</b> <i>x</i>+4 <b>else</b> 5'' 在 Algol 中的意思。
 <P>
 The evaluation of a special form normally produces a value or values,
 but the evaluation may instead call for a non-local exit; see <tt>return-from</tt>,
 <tt>go</tt>, and <tt>throw</tt>.
+<BR>
+对特殊形式(special form)的求值通常产生一个或多个值，但是求值也可能
+call for a non-local exit; ....
+见 <tt>return-from</tt>, <tt>go</tt>, and <tt>throw</tt>.
 <P>
 The set of special forms is fixed in Common Lisp; no way is provided
 for the user to define more.  The user can create new syntactic
 constructs, however, by defining macros.
+<BR>
+Common Lisp 中的特殊形式(special form)集合是固定的。用户没有办法定义新的。
+但是用户可能通过定义宏来创建新的语法结构。
 <P>
 The set of special forms in Common Lisp is purposely kept very small
 because any program-analyzing program must have special knowledge
@@ -47,6 +61,10 @@ special knowledge.  A compiler may be able
 to produce much better code if it recognizes such constructs
 as <tt>typecase</tt> and <tt>multiple-value-bind</tt> and gives them customized
 treatment.)
+<BR>
+特殊形式(special form)的集合故意被保持的很小，因为任何程序分析程序都必须对每个特殊形式(special form)有专门的知识。
+这些程序对于宏不必有专门的知识因为宏展开很简单。(当然这并不是说这些程序没有对于宏的专门知识，尤其是编译器。
+若编译器能识别<tt>typecase</tt> 和 <tt>multiple-value-bind</tt> 并单独对待的话，产生的代码将大大的好。
 <P>
 <A NAME=SPECIALFORMTABLE>&#160;</A><IMG ALIGN=BOTTOM ALT="" SRC="_24769_table3064.gif">
 <P>
@@ -58,19 +76,29 @@ The practical consequence is that the predicates <tt>macro-function</tt> and
 <tt>special-form-p</tt> may both be true of the same symbol.
 It is recommended that a program-analyzing program process
 a form that is a list whose <i>car</i> is a symbol as follows:
+<BR>
+实现可能自由的将特殊形式(special form)实现成宏，或相反。
+其实用角度的后果是谓词 <tt>macro-function</tt> 和 <tt>special-form-p</tt> 对同一个符号可能都是真。
+我们推荐程序分析程序如下分析其<i>car</i>是符号的form.
 <OL><LI>
 If the program has particular knowledge about the symbol,
 process the form using special-purpose code.
 All of the symbols listed in table <A HREF="node59.html#SPECIALFORMTABLE">5-1</A>
 should fall into this category.
+<BR>
+如果一个程序对符号有专门知识，用专门的代码处理。所有表5-1中的符号应归为些类。
 <P>
 <LI>
 Otherwise, if <tt>macro-function</tt> is true of the symbol, apply either
 <tt>macroexpand</tt> or <tt>macroexpand-1</tt>, as appropriate,
 to the entire form and then start over.
+<BR>
+否则，如果 <tt>macro-function</tt> 对于那个符号是真的话，用宏展开并从头再来。
 <P>
 <LI>
 Otherwise, assume it is a function call.
+<BR>
+否则，假定它是函数调用好了。
 </OL>
 <P>
 <BR> <HR><A NAME=tex2html2251 HREF="node60.html"><IMG ALIGN=BOTTOM ALT="next" SRC="icons/next_motif.gif"></A> <A NAME=tex2html2249 HREF="node56.html"><IMG ALIGN=BOTTOM ALT="up" SRC="icons/up_motif.gif"></A> <A NAME=tex2html2243 HREF="node58.html"><IMG ALIGN=BOTTOM ALT="previous" SRC="icons/previous_motif.gif"></A> <A NAME=tex2html2253 HREF="node1.html"><IMG ALIGN=BOTTOM ALT="contents" SRC="icons/contents_motif.gif"></A> <A NAME=tex2html2254 HREF="index.html"><IMG ALIGN=BOTTOM ALT="index" SRC="icons/index_motif.gif"></A> <BR>

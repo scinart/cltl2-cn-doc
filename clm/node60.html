@@ -29,6 +29,9 @@ For example, the macro named <tt>return</tt> will take a form such as
 form <i>expands</i> into the new form.  The new form is then evaluated in
 place of the original form; the value of the new form is returned as the
 value of the original form.
+<BR>
+如果特殊形式(special form)的第一个元素是<i>macro</i>，这个形式(form)就叫<i>宏调用</i>。
+宏本质上是一个形式(form)到形式(form)的函数，宏调用将对产生的新形式(form)在宏所在位置估值。
 <P>
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
 X3J13 voted in January 1989
@@ -43,11 +46,16 @@ and appropriately handle such dotted forms or subforms.
 <P>
 There are a number of standard macros in Common Lisp, and the user can define more
 by using <tt>defmacro</tt>.
+<BR>
+Common Lisp 中有很多标准宏，用户可能用 <tt>defmacro</tt> 定义更多的宏。
 <P>
 Macros provided by a Common Lisp implementation as described herein may expand
 into code that is not portable among differing implementations.
 That is, a macro call may be implementation-independent because
 the macro is defined in this book, but the expansion need not be.
+<BR>
+不同Common Lisp 实现的宏展开成代码后不一定可以移植。
+也说是说，宏调用是实现无关的，因为些书规定了，但展开后不一定是实现无关的。
 <P>
 <hr>
 <b>Implementation note:</b> Implementors are encouraged to implement the macros
@@ -64,6 +72,12 @@ This restriction is not a requirement of Common Lisp; it is recognized
 that certain complex macros may be able to expand into significantly
 more efficient code in certain implementations
 by using implementation-dependent special forms in the macro expansion.
+<BR>
+实现提示：
+实现者被鼓励以一种其展开不包含任何实现相关和不是Common Lisp 形式(form)的方式实现。
+其目的是保证宏展开可能用实现无关程序分析程序处理。
+这个限制并不是Common Lisp 实现必须保证。
+因为我们知道用实现相关的特殊形式(special form)做宏展开可能大大优化一些复杂的宏。
 <hr>
 <P>
 <BR> <HR><A NAME=tex2html2263 HREF="node61.html"><IMG ALIGN=BOTTOM ALT="next" SRC="icons/next_motif.gif"></A> <A NAME=tex2html2261 HREF="node56.html"><IMG ALIGN=BOTTOM ALT="up" SRC="icons/up_motif.gif"></A> <A NAME=tex2html2255 HREF="node59.html"><IMG ALIGN=BOTTOM ALT="previous" SRC="icons/previous_motif.gif"></A> <A NAME=tex2html2265 HREF="node1.html"><IMG ALIGN=BOTTOM ALT="contents" SRC="icons/contents_motif.gif"></A> <A NAME=tex2html2266 HREF="index.html"><IMG ALIGN=BOTTOM ALT="index" SRC="icons/index_motif.gif"></A> <BR>

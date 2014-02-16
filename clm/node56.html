@@ -27,11 +27,22 @@ normally are not.  Examples of meaningful forms are <tt>3</tt>,
 whose value is <tt>3</tt>, and <tt>(+ 3 4)</tt>, whose value is <tt>7</tt>.
 We write <tt>3</tt> => <tt>3</tt> and <tt>(+ 3 4)</tt> => <tt>7</tt>
 to indicate these facts.  (=> means ``evaluates to.'')
+<BR>
+与Common Lisp 实现交互的标准单元是<i>form</i>，它只不过是需要作为程序来<i>求值</i>并产生一个或多个<i>值</i>(which 也是数据对象)的数据对象。
+任何数据对象都可以被求值，当然它们不都是有意义的。比如，符号和表是有意义的form, 数组通常就不是。
+有意义的求值例如 <tt>3</tt>，求值得<tt>3</tt>； <tt>(+ 3 4)</tt>，求值得 <tt>7</tt>。
+我们用=&gt;来表示“求值得”，如 <tt>3</tt> =&gt; <tt>3</tt>， <tt>(+ 3 4)</tt> =&gt; <tt>7</tt>.
 <P>
 Meaningful forms may be divided into three categories:
 self-evaluating forms, such as numbers; symbols, which stand
 for variables; and lists.  The lists in turn may be divided
 into three categories: special forms, macro calls, and function calls.
+<BR>
+有三类求值有意义：
+自求值form，如数字；
+符号(代表变量)；
+表。
+表又分三类：特殊形式(special form)，宏调用，函数调用。
 <P>
 <img align=bottom alt="old_change_begin" src="gif/old_change_begin.gif"><br>
 Any Common Lisp data object not explicitly defined here to be a valid form
@@ -52,6 +63,9 @@ X3J13 voted in October 1988 (EVAL-OTHER) <A NAME=2968>&#160;</A>  to specify tha
 <i>all</i> standard Common Lisp data objects other than symbols
 and lists (including <tt>defstruct</tt> structures defined
 without the <tt>:type</tt> option) are self-evaluating.
+<BR> X3J13投票决定所有不是符号和表的Common Lisp 数据对象
+(包括....没看懂)
+都是自求值的。
 <br><img align=bottom alt="change_end" src="gif/change_end.gif">
 <P>
 <HR>

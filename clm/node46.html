@@ -24,19 +24,27 @@ type information.  In many cases a subsidiary item may be
 by writing <tt>*</tt>.  For example, to completely specify
 a vector type, one must mention the type of the elements
 and the length of the vector, as for example
+<br>
+如果类型标识符是表，它的<i>car</i>是一个符号，其他部分是附属信息。很多情况下附属条目是<i>未指明</i>，用<tt>*</tt>表示。
+比如，要完全指定一个向量类型，我们必须指明向量元素类型和向量长度，比如：
 <P><pre>
 (vector double-float 100)
 </pre><P>
 To leave the length unspecified, one would write
+<br>
+如果不指明长度，就写
 <P><pre>
 (vector double-float *)
 </pre><P>
 To leave the element type unspecified, one would write
+<br>
+如果不指明类型，就写
 <P><pre>
 (vector * 100)
 </pre><P>
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
 One may also leave both length and element type unspecified:
+<br>也可能都不指明：
 <P><pre>
 (vector * *)
 </pre>
@@ -45,6 +53,8 @@ One may also leave both length and element type unspecified:
 Suppose that two type specifiers are the same except that the first
 has a <tt>*</tt> where the second has a more explicit specification.
 Then the second denotes a subtype of the type denoted by the first.
+<br>
+假定两个类型标识符只有前者是<tt>*</tt>而后者具体指明这点区别，那么后者是前者的子类型。
 <P>
 As a convenience, if a list
 has one or more unspecified items at the end, such items
@@ -55,6 +65,11 @@ by the symbol in its <i>car</i>).  For example,
 <tt>(vector double-float *)</tt> may be abbreviated to <tt>(vector double-float)</tt>,
 and <tt>(vector * *)</tt> may be abbreviated to <tt>(vector)</tt> and then to
 simply <tt>vector</tt>.
+<br>
+为了方便，如果一个类型标识符表在最后有一个或多个<i>未指明</i>，它们可以被省略。
+如果省略后变成单元素表，它就可以用它的<i>car</i>的符号代替。
+如<tt>(vector double-float *)</tt> 可以缩写为 <tt>(vector double-float)</tt>，
+<tt>(vector * *)</tt> 可以缩写为 <tt>(vector)</tt> 或者 <tt>vector</tt>.
 <P>
 <BR> <HR><A NAME=tex2html2079 HREF="node47.html"><IMG ALIGN=BOTTOM ALT="next" SRC="icons/next_motif.gif"></A> <A NAME=tex2html2077 HREF="node44.html"><IMG ALIGN=BOTTOM ALT="up" SRC="icons/up_motif.gif"></A> <A NAME=tex2html2071 HREF="node45.html"><IMG ALIGN=BOTTOM ALT="previous" SRC="icons/previous_motif.gif"></A> <A NAME=tex2html2081 HREF="node1.html"><IMG ALIGN=BOTTOM ALT="contents" SRC="icons/contents_motif.gif"></A> <A NAME=tex2html2082 HREF="index.html"><IMG ALIGN=BOTTOM ALT="index" SRC="icons/index_motif.gif"></A> <BR>
 <B> Next:</B> <A NAME=tex2html2080 HREF="node47.html"> Predicating Type Specifiers</A>

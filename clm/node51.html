@@ -22,6 +22,7 @@ First, defining a new structure type with <tt>defstruct</tt> automatically
 causes the name of the structure to be a new type specifier symbol.
 Second, the <tt>deftype</tt> special form can be used to define new type-specifier
 abbreviations.
+<BR> 有两种方式产生新类型标识符，一、用<tt>defstruct</tt>定义新结构的时候自动将结构名变成新类型标识符符号。二、<tt>deftype</tt> special form 可以用来定义新类型标识符缩写。
 <P>
 <BR><b>[Macro]</b><BR>
 <tt>deftype</tt> <tt><I>name</I></tt> <tt><I>lambda-list</I></tt> <b>[[</b><tt>{<I>declaration</I>}*</tt> <tt>|</tt> <tt><I>doc-string</I></tt><b>]]</b> <tt>{<I>form</I>}*</tt><P>
@@ -41,6 +42,7 @@ was an abbreviation.  The <i>name</i> is returned as the value of the
 <tt>deftype</tt> differs from <tt>defmacro</tt> in that if no <i>initform</i>
 is specified for an <tt>&amp;optional</tt> parameter, the default value
 is <tt>*</tt>, not <tt>nil</tt>.
+<BR> <tt>deftype</tt> 与 <tt>defmacro</tt>不同之处在于如果<tt>&amp;optional</tt>没有被指定<i>initform</i>，默认值是<tt>*</tt>而不是<tt>nil</tt>.
 <P>
 If the optional documentation string <i>doc-string</i> is present,
 then it is attached to the <i>name</i>

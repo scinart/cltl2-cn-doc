@@ -19,6 +19,7 @@
 <P>
 The following function may be used to convert an object to an
 equivalent object of another type.
+<BR> 下个函数可以用于将对象从一个类型转换到另一个类型。
 <P>
 <BR><b>[Function]</b><BR>
 <tt>coerce</tt> <tt><I>object</I></tt> <tt><I>result-type</I></tt><P>
@@ -31,6 +32,10 @@ by <tt>typep</tt>, then it is simply returned.
 It is not generally
 possible to convert any object to be of any type whatsoever; only certain
 conversions are permitted:
+<BR> 其中<i>result-type</i>必须是一个类型标识符；<i>object</i>会被转换成相应类型的``equivalent''之物。
+如果转换是不可能的，会产生一个错误(signaled). 特别地，<tt>(coerce x 'nil)</tt>问题产生一个错误。
+如果<i>object</i>已经是那个类型了(由<tt>typep</tt>决定)，它自身会被返回。
+只有一些确定的转换是允许的：
 <UL><LI>
 Any sequence type may be converted to any other sequence type, provided
 the new sequence can contain all actual elements of the old sequence

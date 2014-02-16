@@ -19,12 +19,15 @@
 <P>
 The following type specifier lists define a type in terms of
 other types or objects.
+<br>下列类型标识符表用其他类型或对象定义类型。
 <P>
 <DL COMPACT><DT><tt>(member <i>object1</i> <i>object2</i> ...)</tt>
 <DD>
 This denotes the set
 containing precisely those objects named.  An object is of
 this type if and only if it is <tt>eql</tt> to one of the specified objects.
+<br>
+这标明只有这些元素的类型。一个对象属于这个类型当且仅当它与其中的一个对象是<tt>eql</tt>的。
 </DL>
 <P>
 <hr>
@@ -51,11 +54,15 @@ only <tt>(eql <i>object</i>)</tt> may be used as a CLOS parameter specializer.
 <DD>
 This denotes the set of all those objects that
 are <i>not</i> of the specified type.
+<br>
+这标明所有不属于<i>type</i>类型的对象集合。
 <P>
 <DT><tt>(and <i>type1</i> <i>type2</i> ...)</tt>
 <DD>
 This denotes the intersection of
 the specified types.
+<BR>
+这标明类型的交集。
 </DL><P>
 <hr>
 <b>Compatibility note:</b> This is roughly equivalent to
@@ -73,6 +80,10 @@ type specifiers.  For example, suppose there were a function <tt>primep</tt>
 that takes an integer and says whether it is prime.  Suppose also that
 it is an error to give any object other than an integer to <tt>primep</tt>.
 Then the type specifier
+<br>
+当<tt>typep</tt>处理<tt>and</tt>类型标识符时，它从左到右测试，一旦测试对象不属于其中一个类型时立即停止处理。
+在这个意思上<tt>and</tt>类型标识符很像可执行的<tt>and</tt>形式。该相似之目的是允许<tt>satisfies</tt>这种类型标识符依赖各类型标识符的顺序。
+<br>比如&darr;不会产生错误云云。
 <P><pre>
 (and integer (satisfies primep))
 </pre><P>
@@ -87,6 +98,8 @@ specified types.  For example, the type <tt>list</tt> by definition is the same 
 <tt>(or null cons)</tt>.  Also, the value returned by the function
 <tt>position</tt> is always of type <tt>(or null (integer 0 *))</tt>
 (either <tt>nil</tt> or a non-negative integer).
+<br> 这标明类型的并。比如，<tt>list</tt>类型的定义等同于<tt>(or null cons)</tt>。
+另外，函数<tt>position</tt>返回值的类型始终是<tt>(or null (integer 0 *))</tt>，即要么空，要么是非负整数。
 </dl>
 <P>
 <hr>
@@ -100,6 +113,7 @@ when <tt>typep</tt> processes an <tt>or</tt> type specifier, it always
 tests each of the component types in order from left to right
 and stops processing as soon as one component of the union has
 been found to which the object in question belongs.
+<br>如同<tt>and</tt>一样，<tt>or</tt>也是从左到右并且具有短路特性的。
 <P>
  </DL>
 <P>

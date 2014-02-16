@@ -27,6 +27,12 @@ scoping problems.)  For example, the type <tt>(satisfies numberp)</tt> is the
 same as the type <tt>number</tt>.
 The call <tt>(typep x '(satisfies p))</tt> results in applying <tt>p</tt> to <tt>x</tt>
 and returning <tt>t</tt> if the result is true and <tt>nil</tt> if the result is false.
+<br>
+类型标识符表<tt>(satisfies <i>predicate-name</i>)</tt>表示所有满足条件<i>predicate-name</i>的对象集合，
+其中<i>predicate-name</i>必须是一个符号，它的
+<strong>global function definition (怎么译....)</strong>
+是一元谓词。
+
 <P>
 <img align=bottom alt="old_change_begin" src="gif/old_change_begin.gif"><br>
 As an example, the type <tt>string-char</tt> could be defined as
@@ -45,6 +51,8 @@ and the function <tt>string-char-p</tt> from the language.
 It is not a good idea for
 a predicate appearing in a <tt>satisfies</tt> type specifier to
 cause any side effects when invoked.
+<BR>
+这种类型标识符中谓词有副作用可不是一个好主意。
 <P>
 <HR>
 <P><ADDRESS>

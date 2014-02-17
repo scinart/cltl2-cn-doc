@@ -19,6 +19,7 @@
 <P>
 <A NAME=LAMBDAEXPRESSIONSSECTION>A</A>
 <A NAME=3188><i>lambda-expression</i></A> is a list with the following syntax:
+<BR> λ表达式是有如下语法的表：
 <P><pre>
 (lambda <i>lambda-list</i> . <i>body</i>)
 </pre><P>
@@ -34,6 +35,10 @@ and the results of the <i>last</i> form only are returned as the results
 of the application (the value <tt>nil</tt> is returned if there are zero
 forms in the body).
 The complete syntax of a lambda-expression is:
+<BR>
+第一个元素必须是符号<tt>lambda</tt>. 第二个元素必须是一个表，叫<i>lambda-list</i>，指明参数名字。
+当函数带参调用时，参数通过lambda-list匹配。
+<i>body</i>可以是任意个form，这些form被顺序求值，最后一个form的值作为函数调用的返回值。(若body中无form, 返回<tt>nil</tt>. )
 <P><pre>
 (lambda ({<i>var</i>}*
          [<tt>&amp;optional</tt> {<i>var</i> | <tt>(</tt><i>var</i> [<i>initform</i> [<i>svar</i>]]<tt>)</tt>}*]
@@ -50,6 +55,11 @@ or a <i>lambda-list keyword</i>; lambda-list keywords begin with <tt>&amp;</tt>.
 they do not belong to the keyword package.  They are ordinary symbols
 each of whose names begins with an ampersand.  This terminology
 is unfortunately confusing but is retained for historical reasons.)
+<BR>
+lambda-list的每个元素要么是一个<i>parameter specifier</i>，要么是一个<i>lambda-list</i>关键字。
+<I>lambda-list</I>关键字以<tt>&amp;</tt>开头
+(注意到lambda-list关键字不是通常意义的关键字；它们不属于关键字包。它们是以&amp;开头的普通符号，
+lambda-list关键字这个术语既引起困惑又由于历史原因被保留下来)。
 <P>
 <img align=bottom alt="old_change_begin" src="gif/old_change_begin.gif"><br>
 In all cases a <i>var</i> or <i>svar</i> must be a symbol, the name of a variable;
@@ -62,25 +72,36 @@ X3J13 voted in March 1988 (KEYWORD-ARGUMENT-NAME-PACKAGE) <A NAME=3251>&#160;</A
 to allow a <i>keyword</i> in the preceding specification of a lambda-list
 to be any symbol whatsoever, not just a keyword symbol
 in the <tt>keyword</tt> package.  See below.
+<BR>
+X3J13投票决定允许 lambda-list 中的 <i>keyword</i> 是任何符号，见下。
 <br><img align=bottom alt="change_end" src="gif/change_end.gif">
 <P>
 A lambda-list has five parts, any or all of which may be empty:
+<BR>
+一个 lambda-list 有五部分，任何部分都可以是空：
 <UL><LI>
 Specifiers for the <i>required</i> parameters.  These are all the parameter
 specifiers up to the first lambda-list keyword; if there is no such
 lambda-list keyword, then all the specifiers are for required parameters.
+<BR>
+必要参数部分。所有第一个 lambda-list 关键字之前的参数。
+若没有lambda-list关键字，所有参数都是必要参数。
 <P>
 <LI>
 Specifiers for <i>optional</i> parameters.
 If the lambda-list keyword <tt>&amp;optional</tt> is present,
 the <i>optional</i> parameter specifiers are those following the
 lambda-list keyword <tt>&amp;optional</tt> up to the next lambda-list keyword or the end of the list.
+<BR>
+可选参数。若lambda-list关键字中<tt>&amp;optional</tt>存在，可选参数是<tt>&amp;optional</tt>之后下一个lambda-list关键字或结尾之前的部分。
 <P>
 <LI>
 A specifier for a <i>rest</i> parameter.  The lambda-list keyword <tt>&amp;rest</tt>, if present, must
 be followed by a single <i>rest</i> parameter specifier,
 which in turn must be followed by another lambda-list keyword or the end
 of the lambda-list.
+<BR>
+其余参数。若<tt>&amp;rest</tt>存在，必须后接一个参数标识者，再其后若还有参数必须是另一个lambda-list关键字。
 <P>
 <LI>
 Specifiers for <i>keyword</i> parameters.
@@ -88,11 +109,14 @@ If the lambda-list keyword <tt>&amp;key</tt> is present, all specifiers up to th
 or the end of the list are <i>keyword</i> parameter specifiers.
 The keyword parameter specifiers may optionally be followed by the
 lambda-list keyword <tt>&amp;allow-other-keys</tt>.
+关键字参数。若<tt>&amp;key</tt>存在，直到下一个lambda-list关键字或结尾的所有标识者都是关键字参数标识者。
+关键字参数标识者们之后可选地接一个lambda-list关键字<tt>&amp;allow-other-keys</tt>.
 <P>
 <LI>
 Specifiers for <i>aux</i> variables.  These are not really parameters.
 If the lambda-list keyword <tt>&amp;key</tt> is present, all specifiers after it are
 <i>auxiliary variable</i> specifiers.
+辅助参数。它不是真正的参数，若 lambda-list 关键字中有<tt>&amp;key</tt>，所有其后标识者都是辅助变量。
 </UL>
 <P>
 When the function represented by the lambda-expression is applied
@@ -107,11 +131,20 @@ and each parameter is bound to one argument.  Here, and in general,
 the parameter is bound as a lexical variable unless a
 declaration has been made that it should be a special binding;
 see <tt>defvar</tt>, <tt>proclaim</tt>, and <tt>declare</tt>.
+<BR>
+当λ表达式形式的函数被应用之于参数(arguments)时，参数(arguments and parameters)从左到右处理。
+在最简单的情况下，lambda-list里只有必要参数(required parameters)；每个参数简单地由名字指定。
+当函数被应用时，参数(arguments 和 parameters)数目必须相同，每个参数(parameters)被绑定为静态变量，除非被声明。
+见 <tt>defvar</tt>, <tt>proclaim</tt>, and <tt>declare</tt>.
 <P>
 In the more general case, if there are <i>n</i> required parameters
 (<i>n</i> may be zero), there must be at least <i>n</i> arguments,
 and the required parameters are bound to the first <i>n</i> arguments.
 The other parameters are then processed using any remaining arguments.
+<BR>
+更一般的情况下，如果有n个必要参数(required parameters)，就必须有n个参数(arguments)给它。
+n个必要参数(parameters)被绑定到前n个参数(arguments).
+其他参数(parameters)再用剩下的参数(arguments)处理。
 <P>
 If <i>optional</i> parameters are specified, then each one is processed as
 follows.  If any unprocessed arguments remain, then the parameter variable
@@ -126,6 +159,11 @@ argument remained (and therefore <i>initform</i> had to be evaluated).
 The variable <i>svar</i> is called a <i>supplied-p</i> parameter;
 it is bound not to an argument but to a value indicating whether or not
 an argument had been supplied for another parameter.
+<BR>
+若有可选参数，每个可选参数被这样处理：
+若有任何未处理的参数(argument)，参数(parameter)变量<i>var</i>被绑定到下一个剩下的参数(next remaining argument)，就像必要参数一样。如果没有任何未处理的参数，参数(parameter)中<i>initform</i>部分被求值并绑定到参数(parameter)上，若无<i>initform</i>参数求值得<tt>nil</tt>。
+若<i>svar</i>存在，则如果这个参数可用就是<i>true</i>(不用求值<i>initform</i>)。否则是<i>false</i>。
+它有时也叫 <i>supplied-p</i> 参数； 它被绑定的值标明它(the argument)是否是从一个参数(parameter)得到的。
 <P>
 After all <i>optional</i> parameter specifiers have been processed,
 then there may or may not be a <i>rest</i> parameter.
@@ -135,6 +173,9 @@ the <i>rest</i> parameter is bound to the empty list.)
 If there is no <i>rest</i> parameter and there are no <i>keyword</i>
 parameters,
 then there should be no unprocessed arguments (it is an error if there are).
+<BR>
+在所有可选参数处理之后，可能有一个其余参数，它被绑定为所有还未处理参数的表(若没有还未处理的参数就绑定为空表)。
+若没有其余参数也没有关键字参数，那么不应该有任何未处理的参数了。若有便是一个错误。
 <P>
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
 X3J13 voted in January 1989
@@ -184,6 +225,11 @@ If <tt>&amp;key</tt> is specified, there must remain
 an even number of arguments; these are considered as pairs,
 the first argument in each pair being interpreted as a keyword name
 and the second as the corresponding value.
+<BR>
+接下来，所有关键字参数被处理。相同的参数(argument)可能被处理成<i>rest</i>参数(parameter)。
+(事实上，同时声明<tt>&amp;rest</tt>和 <tt>&amp;key</tt> 是允许的。在这种情况下其它的参数(remaining argument)被用作两种目的；
+它们既是组成<tt>&amp;rest</tt>参数的表，又是关键字参数。这是一个参数(argument)多次处理的唯一情况。)
+如果有关键字参数，之后的参数(argument)必须是偶数个，它们被认为是一对，一对的前者作为关键字名字，一对的后者作为相应值。
 <p>
 <img align=bottom alt="old_change_begin" src="gif/old_change_begin.gif"><br>
 It is an error for the first object of each pair to be

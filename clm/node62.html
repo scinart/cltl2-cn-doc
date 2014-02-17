@@ -33,6 +33,12 @@ distinguished from the treatment of symbols and lambda-expressions as
 objects that satisfy the predicate <tt>functionp</tt>,
 as when giving such an object to <tt>apply</tt> or <tt>funcall</tt> to be
 invoked.
+<BR>
+在函数调用形式(function-call form)中有两种指明函数的方法。一是使用符号命名这个函数。
+用来命名函数的符号与用来命名变量的符号完全不同。二是用 <tt>lambda</tt> 表达式。
+λ表达式<i>不是</i>一个形式(form); 它不能被有意义地求值。
+程序中作为函数名的λ表达式和符号只能出现在函数调用形式的第一个元素或函数特殊形式(<tt>function</tt> special form)的第二个元素。
+在这两种上下文中符号和λ表达式被视为函数名。这应与作为<i>函数对象</i>(即满足谓词<tt>functionp</tt>的对象，就像传给<tt>apply</tt> 或 <tt>funcall</tt> 的参数)的符号和λ表达式区别对待。
 <P>
 <HR>
 <UL> 

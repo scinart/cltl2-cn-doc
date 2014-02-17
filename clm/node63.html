@@ -32,6 +32,9 @@ refers to the definition established by the innermost <tt>flet</tt> or <tt>label
 construct that textually contains the reference, or to the global
 definition (if any) if there is no such containing construct.
 <P>
+  给函数命名有两种方法，用 <tt>defun</tt> 构造的<i>全局名字</i>和<tt>flet</tt> 或 <tt>labels</tt> 特殊形式(special form)命名的<i>局部名字</i>。
+  如果函数调用形式的第一个元素是一个符号，则它指向最里层的<tt>flet</tt>或<tt>labels</tt>，然后指向全局定义。
+<P>
 <HR>
 <P><ADDRESS>
 AI.Repository@cs.cmu.edu

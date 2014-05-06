@@ -30,6 +30,12 @@ We say that a predicate <i>is true</i> when it returns a non-<tt>nil</tt> value,
 and <i>is false</i> when it returns <tt>nil</tt>; that is, it is true or false
 according to whether the condition being tested is true or false.
 <P>
+  一个<i>谓词</i> 是一个测试参数满足某条件，不满足则返回<tt>nil</tt>，满足则返回非<tt>nil</tt>值
+  我们可以认为谓词产生一个布尔值，<tt>nil</tt>代表<i>false</i>，其他值代表<i>true</i>
+  条件控制结构如<tt>cond</tt>, <tt>if</tt>, <tt>when</tt>, and <tt>unless</tt> 使用这些布尔值。
+  我们说一个谓词<i>is true</i> 当它返回非<tt>nil</tt>值，说它<i>is false</i>当它返回<tt>nil</tt>;
+  也就是说，谓词的true和false是测试条件的true和false.
+<P>
 By convention, the names of predicates usually end in the letter
 <tt>p</tt> (which stands for ``predicate'').
 Common Lisp uses a uniform convention in hyphenating names of predicates.
@@ -50,6 +56,15 @@ of object called a <tt>string-less</tt>, and the name <tt>stringlessp</tt>
 would connote a predicate that tests whether something has no strings
 (is ``stringless'')!
 <P>
+  由于传统，谓词的名字通常以<tt>p</tt>结尾(p 代表 谓词(``predicate''))。
+  Common Lisp对谓词如何连接p使用统一的惯例：
+  当且仅当名字中有<tt>-</tt>时，才在名字后加<tt>-p</tt>，否则加<tt>p</tt>。
+  如：<tt>number</tt>变成<tt>numberp</tt>，而<tt>standard-char</tt>变成<tt>standard-char-p</tt>。
+  另一方面，如果是向现有的谓词加前缀，则谓词的<tt>p</tt>部分不变。如：
+  谓词<tt>string-lessp</tt>的p前没有<tt>-</tt>因为它是<tt>lessp</tt>的string版本。
+  如果<tt>string-less-p</tt>的话，就(错误的)意味着谓词是测试一个对象是不是<tt>string-less</tt>。
+  如果是<tt>stringlessp</tt>的话，就意味着测试一个对象是不是<tt>stringless</tt>。
+<P>
 The control structures that test Boolean values only test for
 whether or not the value is <tt>nil</tt>, which is considered to be false.  Any
 other value is considered to be true.  Often a predicate will return <tt>nil</tt> if
@@ -58,9 +73,15 @@ such a function can be used not only as a test but
 also for the useful value provided in case of success.  An example
 is <tt>member</tt>.
 <P>
+  用布尔测试的控制结构将<tt>nil</tt>作为false, 将其他任何值作为 true.
+  通常一个谓词测试失败时返回<tt>nil</tt>，测试成功时返回一个<i>有用的</i>值，这个值不仅可以用来测试也可以用来提供成功的样例。
+  一个例子是<tt>member</tt>。
+<P>
 If no better non-<tt>nil</tt> value is available for the purpose of indicating
 success, by convention the symbol <tt>t</tt> is used as the ``standard''
 true value.
+<P>
+  如果没有更好的非<tt>nil</tt>值可以用来指明测试成功，根据惯例符号 <tt>t</tt> 会被用作标准的真值。
 <P>
 <HR>
 <UL> 

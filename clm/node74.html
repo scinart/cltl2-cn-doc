@@ -28,6 +28,11 @@ and case differences when comparing characters.
 If two objects satisfy any one of these equality predicates,
 then they also satisfy all those that are more general.
 <P>
+  Common Lisp提供一系列测试相等性的谓词：<tt>eq</tt>(最具体), <tt>eql</tt>, <tt>equal</tt>和<tt>equalp</tt>(最抽象)。
+  <tt>eq</tt>和<tt>equal</tt>就是在传统Lisp中的意思，<tt>eql</tt>因其常用而被添加，
+  而<tt>equalp</tt>被加入主要是为了有一个比较数字时忽略类型，比较字符时忽略大小写的<tt>equal</tt>。
+  如果两个对象满足这四个条件中的任何一个，那么它们也满足这四个条件中更抽象的条件(更宽松的条件)。
+<P>
 <BR><b>[Function]</b><BR>
 <tt>eq</tt> <tt><i>x</i></tt> <tt><i>y</i></tt><P><tt>(eq <i>x</i> <i>y</i>)</tt> is true
 if and only if <i>x</i> and <i>y</i> are the same identical object.
@@ -77,6 +82,10 @@ are <i>conceptually</i> the same, whereas <tt>eq</tt> tells whether two
 objects are <i>implementationally</i> identical.  It is for this reason
 that <tt>eql</tt>, not <tt>eq</tt>, is the default comparison predicate
 for the sequence functions defined in chapter <A HREF="node141.html#KSEQUE">14</A>.
+<P>
+  <tt>eql</tt>谓词和<tt>eq</tt>相同除了：如果参数是字符或相同类型的数字，那么比较他们的值。
+  因此<tt>eql</tt>是分辨两个对象是不是<i>概念上的</i>相同。而<tt>eq</tt>是说两个对象是<i>实现上的</i>同一。
+  所以，<tt>eql</tt>而不是<tt>eq</tt>，是序列函数中的默认比较谓词。见<A HREF="node141.html#KSEQUE">14</A>.
 <P>
 <hr>
 <b>Implementation note:</b> <tt>eq</tt> simply compares the two given pointers,

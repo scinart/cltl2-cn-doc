@@ -29,6 +29,11 @@ In addition to preventing name-space conflicts, the
 package system makes the modular structure of large Lisp systems more
 explicit.
 <P>
+早期Lisp系统的一个问题是所有的版本号都用一个命名空间，在大型Lisp系统里，模块由很多
+不同的程序员写成，偶然发生的命名冲突成了严重的问题。Common Lisp试图用<i>包</i>来解决
+这个问题。它由早期Lisp Machine Lsip的包系统衍生而来。除了避免冲突，包系统还使大型Lisp系统
+的模块更明显。
+<P>
 A <i>package</i> is a data structure that establishes a mapping from print
 names (strings) to symbols.  The package thus replaces the ``oblist'' or
 ``obarray'' machinery of earlier Lisp systems.  At any given time one
@@ -46,6 +51,14 @@ that is, a symbol that is supposed to be visible outside of <tt>foo</tt>.
 A reference to an internal symbol requires the intentionally
 clumsier syntax <tt>foo::bar</tt>.)
 <P>
+  一个<i>Package</i>是一个数据结构，它建立了一个从print names (string) to symbols的映射。
+  所以包取代了早期Lisp系统的``oblist''或``obarray''机制。在任何给定的时刻只有一个包是当前包。
+  这个包被Lisp reader用来将字符串翻译成符号。当前包定义为全局变量<tt>*package*</tt>的值。
+  可以用<i>包修饰符</i>来指定其他包里的符号。比如<tt>foo:bar</tt>(将reader读它时)指的是
+  在<tt>foo</tt>这个包里的符号<tt>bar</tt>。
+  (事实上这是事实仅当<tt>bar</tt>是一个<tt>foo</tt>的外部符号，即这个符号是被设计成能被外部看见的。(就像类里的public)
+  指向内部符号(类比private)的语法是<tt>foo::bar</tt>。)
+<P>
 The string-to-symbol mappings available in a given package are divided
 into two classes, <i>external</i> and <i>internal</i>.  We refer to the
 symbols accessible via these mappings as being <i>external</i> and
@@ -55,6 +68,8 @@ given package, a name refers to one symbol or to none; if it does refer
 to a symbol, then it is either external or internal in that
 package, but not both.
 <P>
+  一个包里的 字符串-符号 的映射被分成两部分，<i>external</i>和<i>internal</i>。
+<P>
 External symbols are part of the package's public interface to other
 packages.  External symbols are supposed to be chosen with some care and are
 advertised to users of the package.  Internal symbols are for internal
@@ -62,11 +77,17 @@ use only, and these symbols are normally hidden from other packages.
 Most symbols are created as internal symbols; they become external only
 if they appear explicitly in an <tt>export</tt> command for the package.
 <P>
+外部版本号是包对外的接口。内部符号只用来在内部使用，它们通常对外是隐藏的。
+大多数符号创建时是内部符号，只有在包的<tt>export</tt>命令中出现的才是外部符号。
+<P>
 A symbol may appear in many packages.  It will always have the same
 name wherever it appears, but it may be external in some packages
 and internal in others.  On the other hand,
 the same name (string) may refer to different symbols in
 different packages.
+<P>
+一个符号可以在多个包中出现。它出现时始终会有同一个名字。但可能在一些包中是外部符号，
+而在另一些中是内部符号，另一方面，同样的名字(字符串)可以指不同包里的不同符号。
 <P>
 Normally, a symbol that appears in one or more packages
 will be <i>owned</i> by one particular package, called the <i>home package</i>
@@ -76,6 +97,10 @@ that contains a pointer to its home package.
 A symbol that is owned by some package is said to be <i>interned</i>.
 Some symbols are not owned by any package; such a symbol
 is said to be <i>uninterned</i>, and its package cell contains <tt>nil</tt>.
+<P>
+  通常，一个符号会被一个特定的包<i>拥有</i>，这个包叫这个符号的<i>主包</i>。
+  每个符号都有一个成员叫<i>package cell</i>，它包含了一个指向主包的指针。
+  一个被拥有的符号是<i>interned</i>。有些符号没有主包，这些符号是<i>uninterned</i>，它的package cell是<tt>nil</tt>。
 <P>
 Packages may be built up in layers.  From the point of view of a
 package's user, the package is a single collection of mappings from
@@ -92,6 +117,12 @@ that package or via inheritance.   We will refer to a symbol as being
 not inherited from somewhere else.  Thus a symbol present in a package is accessible,
 but an accessible symbol is not necessarily present.
 <P>
+包可以层层建立，从一个包的使用者角度来说，包只是一个从字符串到内部外部符号对应关系的集合。
+有些对应关系可以在包本身里建立，也有些可以通常<tt>use-package</tt>从其他包继承下来。
+(这个机制会在下面描述) 接下来，如果一个包是当前包，不管是包内定义的还是继承的，只要一个符号可以不通常
+包修饰符引用到，我们就说这个符号是<i>可达(accessible)</i>的。如果这个映射关系是在包里本身定义的，我们就说它是
+<i>当即(present)</i>的。所以，当即的符号是可达的，而可达的符号不一定是当即的。
+<P>
 A symbol is said to be <i>interned in a package</i> if it is
 accessible in that package and also is owned (by either that package
 or some other package).  Normally all the symbols accessible in
@@ -99,6 +130,9 @@ a package will in fact be owned by some package,
 but the terminology is useful when
 discussing the pathological case of an accessible but unowned (uninterned)
 symbol.
+<P>
+  我们说一个符号被一个包<i>内化(intern)</i>了，如果它在这个包可达，且被某个包拥有。
+  通常一个包中可达的所有符号都被某个包拥有，但这个术语只在讨论病态的例子(可达但未内化的符号)中有用。
 <P>
 As a verb, to <i>intern</i> a symbol in a package means to cause the
 symbol to be interned in the package if it was not already;
@@ -108,11 +142,17 @@ interned in becomes its owner (home package); but
 if the symbol was previously owned by another package, that other package
 continues to own the symbol.
 <P>
+  作为一个动词，在一个包中<i>内化</i>一个符号意思是让这个符号在这个包中内化(interned)，如果它以前不是。
+  这个过程由函数<tt>intern</tt>完成。如果这个符号以前是未被拥有的，那么这个包就变成这个符号的主包，否则，它的主包不变。
+<P>
 To <i>unintern</i> a symbol from the package means to cause it to be not
 present in the package
 and, additionally, to cause the symbol to be uninterned if the
 package was the home package (owner) of the symbol.
 This process is performed by the function <tt>unintern</tt>.
+<P>
+  要从一个包<i>外化(unintern)</i>一个符号意思是让它不在这个包里出现(present,或当即的)，如果这个包是主包还要让这个符号变成uninterned.
+  这个过程由函数<tt>unintern</tt>完成。
 <P>
 <HR>
 <UL> 

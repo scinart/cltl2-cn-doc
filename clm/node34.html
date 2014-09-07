@@ -26,6 +26,11 @@ definition is.  This is a mechanism by which the user may reprogram
 the parser to a limited but useful extent.
 See section <A HREF="node192.html#READTABLESECTION">22.1.5</A>.
 <P>
+一个readtable是一个数据结构，它是一个字符到Lisp表达式解析器的映射。
+具体得说，一个readtable指明了对于每一个是<i>宏字符(macro character)</i>它的宏是什么。
+这个机制可以让用户在一定程度上重编程解析器(parser)，而这是有用的。见<A HREF="node192.html#READTABLESECTION">22.1.5</A>.
+<P>scinart注：见On Lisp第17章
+<P>
 <HR>
 <P><ADDRESS>
 AI.Repository@cs.cmu.edu

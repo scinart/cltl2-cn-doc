@@ -21,12 +21,17 @@
 This section documents the functions for hash tables, which
 use <i>objects</i> as keys and associate other objects with them.
 <P>
+这部分写了哈希表相关函数的文档，用Lisp对象作为键和值。
+<P>
 <BR><b>[Function]</b><BR>
 <tt>make-hash-table &amp;key :test :size :rehash-size :rehash-threshold</tt><P>This function creates and returns a new hash table.
 The <tt>:test</tt> argument determines how keys are compared;
 it must be one of the three values <tt>#'eq</tt>, <tt>#'eql</tt>, or <tt>#'equal</tt>,
 or one of the three symbols <tt>eq</tt>, <tt>eql</tt>, or <tt>equal</tt>.
 If no test is specified, <tt>eql</tt> is assumed.
+<P>
+  这个函数创建并返回一个新的哈希表。<tt>:test</tt>参数决定键如何被比较，它必须是
+  <tt>#'eq</tt>, <tt>#'eql</tt>, or <tt>#'equal</tt>或<tt>eq</tt>, <tt>eql</tt>, or <tt>equal</tt>之一。默认是<tt>eql</tt>.
 <P>
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
 X3J13 voted in January 1989
@@ -58,6 +63,9 @@ before it overflows and becomes bigger, but this argument does serve
 as a hint to the implementation of approximately
 how many entries you intend to store.
 <P>
+  <tt>:size</tt>参数是哈希表的初始大小。(实际大小可以被向上取到下一个好的大小，比如一个质数)
+  你不可能正好存储这么多条目而不使表变得更大。但这个参数反应了你大约要存多少条目。
+<P>
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
 X3J13 voted in January 1989
 (ARGUMENTS-UNDERSPECIFIED) <A NAME=17343>&#160;</A> 
@@ -77,6 +85,10 @@ which is the number of entries to add, or
 it can be a floating-point number greater than 1,
 which is the ratio of the new size to the old size.
 The default value for this argument is implementation-dependent.
+<P>
+  <tt>:rehash-size</tt>参数指定了当哈希表满了的时候你想把它的大小增加多少。
+  它是一个大于0的整数，表示增加的条目，或者大于1的浮点数，表示增大的倍数。
+  它的默认值是实现相关的。
 <P>
 <img align=bottom alt="old_change_begin" src="gif/old_change_begin.gif"><br>
 The <tt>:rehash-threshold</tt> argument

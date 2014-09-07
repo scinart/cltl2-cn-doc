@@ -30,9 +30,16 @@ seven dimensions.
 Each dimension is a non-negative integer; if any dimension of an array is zero,
 the array has no elements.
 <P>
+数组是一个对象，它的成员用直角坐标系的方法组织起来。
+一个数组可以有任意多维(包括0)(一个0维数组包含且只包含一个元素)。
+实际上，维度数可以被实现限制，但至少是7。每个维度都是一个非负整数，如果任意一个维度是0，那么数组没有元素。
+<P>
 An array may be a <i>general array</i>, meaning each element may be any Lisp
 object, or it may be a <i>specialized array</i>, meaning that each element
 must be of a given restricted type.
+<P>
+一个数组可以是广义数组，意思是每个元素都可以是任意的Lisp对象，或者专有数组，意思是
+每个元素的类型都被限制为给定类型。
 <P>
 <img align=bottom alt="old_change_begin" src="gif/old_change_begin.gif"><br>
 One-dimensional arrays are called vectors.  General vectors may contain

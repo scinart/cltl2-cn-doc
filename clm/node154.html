@@ -28,17 +28,28 @@ the value that is associated with a given key.  Finding the value is
 very fast, even if there are many entries, because hashing is used; this
 is an important advantage of hash tables over property lists.
 <P>
+Lisp对象Hash table有效的产生一个Lisp对象到Lisp对象的映射。
+每个哈希表有一个<i>条目</i>的集合，第个条目关联一个特定的<i>key</i>和一个特定的<i>value</i>.
+基本的函数能创建条目，删除条目，找到key相关的值，找到值是很快的，即使条目很多也是如此，因为用了散列。
+这是哈希表之于属性列表的显著优势。
+<P>
 A given hash table can associate only one <i>value</i> with a given
 <i>key</i>; if you try to add a second <i>value</i>, it will replace the
 first.  Also, adding a value to a hash table is a destructive operation;
 the hash table is modified.  By contrast, association lists can be
 augmented non-destructively.
 <P>
+一个哈希表的键只能关联一个值，如果你加了一个新值那么老值就会被取代。这个操作同时是破坏性的操作。
+意思是哈希表被修改了。相比之下，属性列表可以不被破坏的增广。
+<P>
 Hash tables come in three kinds, the difference being whether the keys
 are compared with <tt>eq</tt>, <tt>eql</tt>, or <tt>equal</tt>.  In other words, there
 are hash tables that hash on Lisp <i>objects</i> (using <tt>eq</tt> or <tt>eql</tt>)
 and there are hash tables that hash on <i>tree structure</i>
 (using <tt>equal</tt>).
+<P>
+哈希表有三种，它们的不同之处在于key是用什么来比较的。(<tt>eq</tt>, <tt>eql</tt>, or <tt>equal</tt>)。
+换句话说，有以Lisp对象(用<tt>eq</tt>或<tt>eql</tt>)来作为key比较的。也有以<i>树形结构</i>(使用<tt>equal</tt>)作为比较的。
 <P>
 Hash tables are created with the function
 <tt>make-hash-table</tt>, which takes various options, including
@@ -48,6 +59,10 @@ the associated value, use <tt>gethash</tt>.
 New entries are added
 to hash tables using <tt>setf</tt> with <tt>gethash</tt>.
 To remove an entry, use <tt>remhash</tt>.  Here is a simple example.
+<P>
+  哈希表用函数<tt>make-hash-table</tt>创建。默认创建的是<tt>eql</tt>型哈希表。
+  条目可以用<tt>gethash</tt>取得，新条目可以用<tt>setf</tt>和<tt>gethash</tt>一起使用来设定。
+  <tt>remhash</tt>可以删除一个条目。例子如下 ⇓
 <P><pre>
 (setq a (make-hash-table)) 
 (setf (gethash 'color a) 'brown) 
@@ -63,8 +78,13 @@ associated values.  The hash table has two items in it, one of which
 associates from <tt>color</tt> to <tt>brown</tt>, and the other of which
 associates from <tt>name</tt> to <tt>fred</tt>.
 <P>
+  在这个例子中，符号<tt>color</tt>和<tt>name</tt>被用作key，符号<tt>brown</tt>和<tt>fred</tt>被用作值。
+  { 'color =&gt; 'brown , 'name =&gt; 'fred }
+<P>
 Keys do not have to be symbols; they can be any Lisp object.  Similarly,
 values can be any Lisp object.
+<P>
+键可以是任何Lisp对象，值也如此。
 <P>
 <img align=bottom alt="old_change_begin" src="gif/old_change_begin.gif"><br>
 When a hash table is first created, it has a <i>size</i>, which is the

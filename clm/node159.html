@@ -23,6 +23,8 @@ used for accessing an element of an array.
 Other access functions, such as <tt>svref</tt>, <tt>char</tt>, and <tt>bit</tt>,
 may be more efficient in specialized circumstances.
 <P>
+  通常使用函数 <tt>aref</tt> 取数组元素。其他函数如 <tt>svref</tt>, <tt>char</tt>, and <tt>bit</tt>可以在专用数组里更有效的取元素。
+<P>
 <BR><b>[Function]</b><BR>
 <tt>aref <i>array</i> &amp;rest <i>subscripts</i></tt><P>This accesses and returns the element of <i>array</i> specified
 by the <i>subscripts</i>.  The number of subscripts must
@@ -34,6 +36,8 @@ in that it completely ignores fill pointers.  <tt>aref</tt> can access
 without error any array element, whether active or not.  The generic
 sequence function <tt>elt</tt>, however, observes the fill pointer;
 accessing an element beyond the fill pointer with <tt>elt</tt> is an error.
+<P>
+  见<a href="http://jtra.cz/stuff/lisp/sclr/aref.html">http://jtra.cz/stuff/lisp/sclr/aref.html</a>吧。
 <P>
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
 Note that this remark, predating the design of the Common Lisp Object System,

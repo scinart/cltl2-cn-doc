@@ -23,6 +23,9 @@ All that is required to construct an array is a list of
 the dimensions; most of the options are for relatively esoteric
 applications.
 <P>
+  不要被函数<tt>make-array</tt>的很多选项吓到。创建一个数组只要一个维度列表。
+  大多数选项只在少数应用中有用。
+<P>
 <BR><b>[Function]</b><BR>
 <tt>make-array <i>dimensions</i> &amp;key :element-type :initial-element :initial-contents :adjustable :fill-pointer :displaced-to :displaced-index-offset</tt><P>This is the primitive function for making arrays.  The <i>dimensions</i> argument
 should be a list of non-negative integers
@@ -35,13 +38,23 @@ Note that if <i>dimensions</i> is <tt>nil</tt>, then a zero-dimensional array is
 For convenience when making a one-dimensional array, the single dimension
 may be provided as an integer rather than as a list of one integer.
 <P>
+  这个原生函数用来创建数组，<i>dimension</i>参数应该是非负整数列表。它的长度就是数组的秩。
+  每个维度都应小于<tt>array-dimension-limit</tt>，它们的积应小于<tt>array-total-size-limit</tt>.
+  如果<i>dimensions</i>是<tt>nil</tt>那么一个零维数组被创建。
+  为了方便创建一维数组，可以用一个整数而不是有一个整数的列表来作为参数。
+<P>
 An implementation of Common Lisp may impose a limit on the rank of an array,
 but this limit may not be smaller than 7.  Therefore, any Common Lisp
 program may assume the use of arrays of rank 7 or less.
 The implementation-dependent limit on array rank is reflected in
 <tt>array-rank-limit</tt>.
 <P>
+一个Common Lisp实现可能对数组的秩加以限制，但这个限制不能小于7。
+所以，任何Common Lisp程序可以使用秩小于等于7的数组。
+实现相关的限制反映在<tt>array-rank-limit</tt>中。
+<P>
 The keyword arguments for <tt>make-array</tt> are as follows:
+<br/><tt>make-array</tt>的关键字参数如下
 <P>
 <DL COMPACT><DT><tt>:element-type</tt>
 <DD>
@@ -52,6 +65,10 @@ of the most specialized type that can nevertheless accommodate
 elements of the given type.
 The type <tt>t</tt> specifies a general array, one whose elements may
 be any Lisp object; this is the default type.
+<br/>
+这个参数应该是数组元素的类型的名字。
+an array is constructed of the most specialized type that can nevertheless accommodate elements of the given type. ....这是啥
+广义数组的元素是类型<tt>t</tt>，它的元素可以是任何Lisp对象，这是默认的类型。
 </dl>
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
 <dl compact><dd>
@@ -68,7 +85,7 @@ the result will be an array of type <tt>(array <i>type</i>)</tt>;
 put another way, for any type <i>A</i>,
 <P><pre>
 (typep (make-array ... :element-type '<i>A</i> ...) 
-       '(array <i>A</i>)))
+       '(array <i>A</i>))
 </pre><P>
 is always true.
 See <tt>upgraded-array-element-type</tt>.
@@ -85,6 +102,10 @@ elements are undefined (unless the <tt>:initial-contents</tt> or
 <tt>:displaced-to</tt> option is used).
 The <tt>:initial-element</tt> option may not be used with the
 <tt>:initial-contents</tt> or <tt>:displaced-to</tt> option.
+<br/>
+这个参数可以用来初始化数组。它的值的类型必须是<tt>:element-type</tt>。
+如果这个省略这个参数，那么数组的初始值是未定义的。(除非使用了<tt>:initial-contents</tt>或<tt>:displaced-to</tt>)
+<tt>:initial-element</tt>不可以与<tt>:initial-contents</tt> or <tt>:displaced-to</tt>一起使用。
 <P>
 <DT><tt>:initial-contents</tt>
 <DD>
@@ -95,6 +116,7 @@ element.  Otherwise, the value must be a sequence whose length is equal
 to the first dimension; each element must be a nested structure for an
 array whose dimensions are the remaining dimensions, and so on.
 For example:
+<br/> 看例子就知道了。
 <P><pre>
 (make-array '(4 2 3) 
             :initial-contents 
@@ -111,12 +133,14 @@ elements are undefined (unless the <tt>:initial-element</tt> or
 <tt>:displaced-to</tt> option is used).
 The <tt>:initial-contents</tt> option may not be used with the
 <tt>:initial-element</tt> or <tt>:displaced-to</tt> option.
+<br/>它和<tt>:initial-element</tt> or <tt>:displaced-to</tt>不能一起使用。
 <P>
 <DT><tt>:adjustable</tt>
 <DD>
 This argument, if specified and not <tt>nil</tt>, indicates that it
 must be possible to alter the array's size dynamically after it is
 created.  This argument defaults to <tt>nil</tt>.
+<br/> 如果这个参数非<tt>nil</tt>那么这个数组的大小在创建后可以动态增加。它默认是nil.
 </dl>
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
 <dl compact><dd>
@@ -130,6 +154,8 @@ and therefore <tt>adjustable-array-p</tt> may be correspondingly true or false o
 the resulting array.  Common Lisp provides no portable way to create a
 non-adjustable array, that is, an array for which <tt>adjustable-array-p</tt> is
 guaranteed to be false.
+<br/>如果这个参数非<tt>nil</tt>那么<tt>adjustable-array-p</tt>返回真，否则返回真假取决于实现。
+在Common Lisp中没有可移植的创建保证<tt>adjustable-array-p</tt>为假的数组的方法。
 </dl>
 <img align=bottom alt="change_end" src="gif/change_end.gif">
 <dl compact>
@@ -143,6 +169,8 @@ If the value <tt>t</tt> is specified, the length of the array is used;
 otherwise the value must be an integer between 0 (inclusive)
 and the length of the array (inclusive).
 This argument defaults to <tt>nil</tt>.
+<br/>如果此参数非空那么数组必须是一维的。
+如果为真，那么数组的长度就作为这个参数，否则它是一个[0 length](闭区间)的整数。它默认是<tt>nil</tt>.
 <P>
 <DT><tt>:displaced-to</tt>
 <DD>
@@ -159,6 +187,13 @@ The <tt>:displaced-to</tt> option may not be used with the
 <tt>:initial-element</tt>
 or <tt>:initial-contents</tt> option.
 This argument defaults to <tt>nil</tt>.
+<br/>
+如果此参数非空，那么这个数组将是一个<i>displaced</i>数组。
+此参数必须是一个数组，<tt>make-array</tt>会创建一个<i>indirect</i>或叫<i>shared</i>的数组。
+它与给定数组共享元素。在这种情况下<tt>:displaced-index-offset</tt>选项就可能有用。
+如果给定数组和要创建的数组的<tt>:element-type</tt>不一样，这将是一个错误。
+<tt>:displaced-to</tt>不能和<tt>:initial-element</tt> <tt>:initial-contents</tt> 一起使用。
+它默认是<tt>nil</tt>
 <P>
 <DT><tt>:displaced-index-offset</tt>
 <DD>
@@ -182,6 +217,8 @@ accesses to array A.  The mapping treats both arrays as if they
 were one-dimensional by taking the elements in row-major order,
 and then maps an access to element <i>k</i> of array B to an access to element
 <i>k</i>+<i>n</i> of array A.
+<br/>
+不翻了～～
 <P>
  </DL>
 <P>
@@ -278,9 +315,9 @@ limits.
 a simple general vector with specified initial contents.
 It is analogous to the function <tt>list</tt>.
 <P><pre>
-(vector <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap42265.gif"> <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap42275.gif"> ... <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap40275.gif">) 
+(vector α1 α2 ... αn) 
    == (make-array (list <b><i>n</i></b>) :element-type t 
-             :initial-contents (list <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap42265.gif"> <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap42275.gif"> ... <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap40275.gif">))
+             :initial-contents (list α1 α2 ... αn))
 </pre><P>
 <P>
 <BR> <HR><A NAME=tex2html3501 HREF="node159.html"><IMG ALIGN=BOTTOM ALT="next" SRC="icons/next_motif.gif"></A> <A NAME=tex2html3499 HREF="node157.html"><IMG ALIGN=BOTTOM ALT="up" SRC="icons/up_motif.gif"></A> <A NAME=tex2html3493 HREF="node157.html"><IMG ALIGN=BOTTOM ALT="previous" SRC="icons/previous_motif.gif"></A> <A NAME=tex2html3503 HREF="node1.html"><IMG ALIGN=BOTTOM ALT="contents" SRC="icons/contents_motif.gif"></A> <A NAME=tex2html3504 HREF="index.html"><IMG ALIGN=BOTTOM ALT="index" SRC="icons/index_motif.gif"></A> <BR>

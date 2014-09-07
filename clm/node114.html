@@ -23,6 +23,8 @@ value of the special variable <tt>*package*</tt> must always be a package
 object (not a name).  Whatever package object is currently the
 value of <tt>*package*</tt> is referred to as the <i>current package</i>.
 <P>
+  特殊变量<tt>*package*</tt>的值必须始终是一个包对象(不是包名)。<tt>*package*</tt>始终指向<i>当前包</i>。
+<P>
 When the Lisp reader has, by parsing, obtained a string of characters
 thought to name a symbol, that name is looked up in the current package.
 This lookup may involve looking in other packages whose external symbols
@@ -36,6 +38,11 @@ in the current package.
 If the name is later read again while this same package is
 current, the same symbol will then be found and returned.
 <P>
+当Lisp reader读到一个字符串解释成符号时，这个符号在当前包中查到。
+查到过程可能包含在其他继承的包的外部符号中查找。如果找到了，
+就返回相应的符号，否则(即这个符号在这个包中是不可达(accessible)的)，就在当前包中创建一个符号，
+当前包作为这个符号的主包。
+<P>
 Often it is desirable to refer to an external symbol in some package
 other than the current one.  This is done through the use of a
 <i>qualified name</i>, consisting of a package name, then a colon, then the
@@ -48,6 +55,9 @@ is no package named <tt>editor</tt>, or if no symbol named <tt>buffer</tt>
 is accessible in <tt>editor</tt>, or if <tt>buffer</tt> is an internal
 symbol in <tt>editor</tt>, the Lisp reader will signal
 a correctable error to ask the user for instructions.
+<P>
+  <tt>editor:buffer</tt>指，包<tt>editor</tt>中的可达的符号<tt>buffer</tt>.
+  如果不是这样，Lisp reader会产生一个可以改正的错误(correctable error)来询问用户
 <P>
 On rare occasions, a user may need to refer to an <i>internal</i> symbol of
 some package other than the current one.  It is illegal to do this with
@@ -78,6 +88,12 @@ itself.  As a matter of style, keywords should always be accessed using
 the leading-colon convention; the user should never import or inherit
 keywords into any other package.  It is an error to try to apply
 <tt>use-package</tt> to the <tt>keyword</tt> package.
+<P>
+  <tt>keyword</tt>包包含了所有的关键字符号。这些符号必须在所有包中可达，所以冲突不会发生。
+  因为它是如此常用，Common Lisp提供了一个特殊的reader语法。任何符号前加一个冒号都是<tt>keyword</tt>包的外部符号。
+  <tt>keyword</tt>包中的符号自动被声明为常量(见<tt>defconstant</tt>)，并且是自求值的。
+  一个好的风格是，关键字应该始终以前加冒号这做方式使用。用户决不应该import或者继承关键字。
+  若将函数<tt>use-package</tt>应用于<tt>keyword</tt>包则会产生一个错误。
 <P>
 Each symbol contains a package cell that is used to record the home
 package of the symbol, or <tt>nil</tt> if the symbol is uninterned.  This cell

@@ -25,6 +25,9 @@ later.  A package's name should be something long and self-explanatory,
 like <tt>editor</tt>; there might be a nickname that is shorter and easier to
 type, such as <tt>ed</tt>.
 <P>
+包有一个名字(一个字符串)，还可能有昵称。这些在包创建时就被赋予了。它们可以在之后改变。
+一个包名应该是长的，自解释的，比如<tt>editor</tt>; 它可能有昵称，比如<tt>ed</tt>.
+<P>
 There is a single name space for packages.  The function
 <tt>find-package</tt> translates a package name or nickname into the
 associated package.  The function <tt>package-name</tt> returns the name of a
@@ -35,6 +38,11 @@ specified by the user.  Package renaming is occasionally useful when, for
 development purposes, it is desirable to load two versions of a package
 into the same Lisp.  One can load the first version, rename it,
 and then load the other version, without getting a lot of name conflicts.
+<P>
+包名只有一个命名空间，函数<tt>find-package</tt>把包名(或昵称)翻译成包
+函数<tt>package-name</tt>返回一个包的名字。函数<tt>package-nicknames</tt>
+返回包所有昵称的列表。函数<tt>rename-package</tt>移除包的名字的昵称，用新的替代它们。
+包重命名偶尔有用，比如读两个不同版本的包。
 <P>
 When the Lisp reader sees a qualified symbol, it handles the package-name
 part in the same way as the symbol part with respect to capitalization.
@@ -52,12 +60,25 @@ in this book for symbols, we show ordinary package names using
 lowercase letters, even though the name string is internally represented
 with uppercase letters.
 <P>
+当Lisp reader看到一个包修饰符时，它用和普通符号一样的处理方式处理它，包括大写。
+小写字母会自动转换成大写，除非被转义或被<tt>|</tt>包围。包名是<tt>find-package</tt>找到，是大小写敏感的。
+比如<tt>|Foo|:|Bar|</tt>指包<tt>Foo</tt>中的符号<tt>Bar</tt>
+而<tt>|Foo:Bar|</tt>指的是一个七个字母组成的符号，并内化为当前包的符号。
+按符号的记法，本书的包名也用小写字母，尽管它们内在表示为大写。
+<P>
 Most of the functions that require a package-name argument from the
 user accept either a symbol or a string.  If a symbol is supplied,
 its print name will be used; the print name will already have undergone
 case-conversion by the usual rules.  If a string is supplied, it
 must be so capitalized as to match exactly the
 string that names the package.
+<P>
+大多数有以包为参数的函数不管是符号还是字符串都会接受(作为包的参数)。
+如果给之以符号，它的打印名会被使用。打印名通常会自动转换成大写。
+如果给之以字符串，它必须完全符合包的名字
+<pre>(package-name "CL-USER") ;; "COMMON-LISP-USER"
+(package-name "cl-user") ;; no such package.
+</pre>
 <P>
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
 X3J13 voted in January 1989

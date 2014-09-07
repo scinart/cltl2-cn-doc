@@ -25,23 +25,32 @@ would otherwise occur in normal use.  This may seem over-protective, but
 experience with earlier package systems has shown that such safety
 features are needed.
 <P>
+与包相关的bugs可能非常难捉摸和困惑，事情不是看起来那样。
+Common Lisp包系统设计时有很多安全特性，这些特性能避免大部分bug。这看起来是过度保护了。
+但是早期系统的经验表明这些安全特性是有必要的。
+<P>
 In dealing with the package system, it is useful to keep in mind the
 following consistency rules, which remain in force as long as the value
 of <tt>*package*</tt> is not changed by the user:
 <P>
+在与包系统打交道是，记住下列一致性规则是有用的。只要包不改变它们一定是一样的。
+<P>
 <UL><LI>
 <i>Read-read consistency:</i> Reading the same print name always results in
 the same (<tt>eq</tt>) symbol.
+<br/><i>读—读一致</i>读同一个打印名始终得到同一个符号。
 <P>
 <LI>
 <i>Print-read consistency:</i> An interned symbol always prints as a
 sequence of characters that, when read back in, yields the same (<tt>eq</tt>)
 symbol.
+<br/><i>打印—读一致</i>一个interned的系统打印出来再读得到同一个(<tt>eq</tt>)符号
 <P>
 <LI>
 <i>Print-print consistency:</i> If two interned symbols are not <tt>eq</tt>, then
 their printed representations will be different sequences of
 characters.
+<br/><i>写—写一致</i>不同的符号打印出来的结果一定不同。
 </UL>
 <P>
 These consistency rules remain true in spite of any amount of implicit

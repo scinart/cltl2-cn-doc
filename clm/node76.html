@@ -27,6 +27,9 @@ others are implemented as macros, which typically expand into
 complex program fragments expressed in terms of special forms
 or other macros.
 <P>
+Lisp提供很多特殊结构来组织程序。一些与控制权流动有关(控制结构)，一些与变量访问权有关(环境结构)。
+它们一些是用特殊形式实现；其他的用宏实现(通常展开成复杂的程序片段，是特殊形式或其它宏)。
+<P>
 Function application is the primary method for construction of Lisp
 programs.  Operations are written as the application of a function
 to its arguments.  Usually, Lisp programs are written as a large collection
@@ -35,6 +38,8 @@ These functions operate by calling one another, and so larger
 operations are defined in terms of smaller ones.
 Lisp functions may call upon themselves recursively,
 either directly or indirectly.
+<P>
+函数之应用是Lisp程序构建的首要方法。
 <P>
 <img align=bottom alt="change_begin" src="gif/change_begin.gif"><br>
 Locally defined functions (<tt>flet</tt>, <tt>labels</tt>) and macros (<tt>macrolet</tt>)

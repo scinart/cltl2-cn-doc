@@ -68,7 +68,7 @@ given package, a name refers to one symbol or to none; if it does refer
 to a symbol, then it is either external or internal in that
 package, but not both.
 <P>
-  一个包里的 字符串-符号 的映射被分成两部分，<i>external</i>和<i>internal</i>。
+  一个包里的 字符串-符号 的映射被分成两部分，<i>外部的(external)</i>和<i>内部的(internal)</i>。
 <P>
 External symbols are part of the package's public interface to other
 packages.  External symbols are supposed to be chosen with some care and are
@@ -77,7 +77,7 @@ use only, and these symbols are normally hidden from other packages.
 Most symbols are created as internal symbols; they become external only
 if they appear explicitly in an <tt>export</tt> command for the package.
 <P>
-外部版本号是包对外的接口。内部符号只用来在内部使用，它们通常对外是隐藏的。
+外部符号是包对外的接口。内部符号只用来在内部使用，它们通常对外是隐藏的。
 大多数符号创建时是内部符号，只有在包的<tt>export</tt>命令中出现的才是外部符号。
 <P>
 A symbol may appear in many packages.  It will always have the same
@@ -100,7 +100,7 @@ is said to be <i>uninterned</i>, and its package cell contains <tt>nil</tt>.
 <P>
   通常，一个符号会被一个特定的包<i>拥有</i>，这个包叫这个符号的<i>主包</i>。
   每个符号都有一个成员叫<i>package cell</i>，它包含了一个指向主包的指针。
-  一个被拥有的符号是<i>interned</i>。有些符号没有主包，这些符号是<i>uninterned</i>，它的package cell是<tt>nil</tt>。
+  一个被拥有的符号是<i>驻留的(interned)</i>。有些符号没有主包，这些符号是<i>未驻留的(uninterned)</i>，它的package cell是<tt>nil</tt>。
 <P>
 Packages may be built up in layers.  From the point of view of a
 package's user, the package is a single collection of mappings from
@@ -118,10 +118,10 @@ not inherited from somewhere else.  Thus a symbol present in a package is access
 but an accessible symbol is not necessarily present.
 <P>
 包可以层层建立，从一个包的使用者角度来说，包只是一个从字符串到内部外部符号对应关系的集合。
-有些对应关系可以在包本身里建立，也有些可以通常<tt>use-package</tt>从其他包继承下来。
+有些对应关系可以在包本身里建立，也有些可以通过<tt>use-package</tt>从其他包继承下来。
 (这个机制会在下面描述) 接下来，如果一个包是当前包，不管是包内定义的还是继承的，只要一个符号可以不通常
 包修饰符引用到，我们就说这个符号是<i>可达(accessible)</i>的。如果这个映射关系是在包里本身定义的，我们就说它是
-<i>当即(present)</i>的。所以，当即的符号是可达的，而可达的符号不一定是当即的。
+<i>当下(present)</i>的。所以，当下的符号是可达的，而可达的符号不一定是当下的。
 <P>
 A symbol is said to be <i>interned in a package</i> if it is
 accessible in that package and also is owned (by either that package
@@ -131,8 +131,8 @@ but the terminology is useful when
 discussing the pathological case of an accessible but unowned (uninterned)
 symbol.
 <P>
-  我们说一个符号被一个包<i>内化(intern)</i>了，如果它在这个包可达，且被某个包拥有。
-  通常一个包中可达的所有符号都被某个包拥有，但这个术语只在讨论病态的例子(可达但未内化的符号)中有用。
+  我们说一个符号被一个包<i>驻留(intern)</i>了，如果它在这个包可达，且被某个包拥有。
+  通常一个包中可达的所有符号都被某个包拥有，但这个术语只在讨论病态的例子(可达但未驻留的符号)中有用。
 <P>
 As a verb, to <i>intern</i> a symbol in a package means to cause the
 symbol to be interned in the package if it was not already;
@@ -142,7 +142,7 @@ interned in becomes its owner (home package); but
 if the symbol was previously owned by another package, that other package
 continues to own the symbol.
 <P>
-  作为一个动词，在一个包中<i>内化</i>一个符号意思是让这个符号在这个包中内化(interned)，如果它以前不是。
+  作为一个动词，在一个包中<i>驻留(intern)</i>一个符号意思是让这个符号在这个包中驻留(interned)，如果它以前不是。
   这个过程由函数<tt>intern</tt>完成。如果这个符号以前是未被拥有的，那么这个包就变成这个符号的主包，否则，它的主包不变。
 <P>
 To <i>unintern</i> a symbol from the package means to cause it to be not
@@ -151,7 +151,7 @@ and, additionally, to cause the symbol to be uninterned if the
 package was the home package (owner) of the symbol.
 This process is performed by the function <tt>unintern</tt>.
 <P>
-  要从一个包<i>外化(unintern)</i>一个符号意思是让它不在这个包里出现(present,或当即的)，如果这个包是主包还要让这个符号变成uninterned.
+  要从一个包<i>去驻留(unintern)</i>一个符号意思是让它不在这个包里是当下的(present)，如果这个包是主包还要让这个符号变成未驻留的.
   这个过程由函数<tt>unintern</tt>完成。
 <P>
 <HR>

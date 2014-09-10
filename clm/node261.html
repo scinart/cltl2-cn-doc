@@ -34,13 +34,22 @@ Protocol, explains how the Common Lisp Object System can be customized.  [The th
 has not yet been approved by X3J13 for inclusion in the forthcoming
 Common Lisp standard and is not included in this book.-GLS]
 <P>
+这部分的前两部分描述了CLOS标准编程接口，第一部分，编程接口概念，包涵了CLOS概念的描述。
+第二部分，编程接口中的函数，包涵了CLOS编程接口中的函数的宏。
+第三部分(本书里没有我写它干啥！)...
+<P>
 The fundamental objects of the Common Lisp Object System are classes, instances,
 generic functions, and methods.
+<P>
+CLOS的基础对象是类(class)，实例(instance)，广义函数(generic function)和方法(method)。
 <P>
 A <i>class</i> object determines the structure and behavior of a set
 of other objects, which are called its <i>instances</i>. 
 Every Common Lisp object is an <i>instance</i> of a class.  The class of an object determines the set of
 operations that can be performed on the object.
+<P>
+  一个<i>类</i>对象决定了一个结构(structure)和其<i>实例</i>的集合上的行为。
+  每个Common Lisp对象都是某个类的<i>实例</i>。这个对象的类决定了它之上能用的方法。
 <P>
 A <i>generic function</i> is a function whose behavior depends on the
 classes or identities of the arguments supplied to it.  A generic
@@ -51,10 +60,17 @@ method is said to <i>specialize</i> a generic function.  When invoked,
 a generic function executes a subset of its methods based on the
 classes of its arguments.
 <P>
+  一个<i>广义函数</i>是一个函数，它的行为取决于加之它的参数的类或类型。
+  一个广义函数对象包涵了一个方法的集合，一个Lambda列表，一个method combination type(这是啥....)和其他信息。
+  <i>方法</i>定义了一个广义函数在一个类是的特定行为。我们说这个方法<i>specialize特殊化了</i>广义函数。
+  当被调用时，一个广义函数基于它参数的类来执行它方法的一个子集。
+<P>
 A generic function can be used in 
 the same ways as an ordinary function in Common Lisp; in
 particular, a generic function can be used as an argument to 
 <tt>funcall</tt> and <tt>apply</tt> and can be given a global or a local name.
+<P>
+一个广义函数可以和普通函数一样在Common Lisp中使用。
 <P>
 A <i>method</i> is an object that contains a method function, a sequence of
 <i>parameter specializers</i> that specify when the given method is
@@ -63,6 +79,8 @@ applicable, and a sequence of <i>qualifiers</i> that is used by the
 required formal parameter of each method has an associated parameter
 specializer, and the method will be invoked only on arguments that
 satisfy its parameter specializers.
+<P>
+  一个<i>方法</i>是一个对象，它包涵了一个方法函数，一个<i>parameter specializers</i>的序列。翻译不动了....
 <P>
 The method combination facility controls the selection of methods, the
 order in which they are run, and the values that are returned by the

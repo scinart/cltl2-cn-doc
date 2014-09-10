@@ -23,12 +23,17 @@
 <i>class</i> is an object that determines the structure and behavior 
 of a set of other objects, which are called its <i>instances</i>.
 <P>
+一个类是一个对象，它决定了一个结构和它实例集合的行为。
+<P>
 A class can inherit structure and behavior from other classes.  
 A class whose definition refers to other classes for the purpose of
 inheriting from them is said to be a <i>subclass</i> of each of
 those classes.  The classes that are designated for purposes of
 inheritance are said to be <i>superclasses</i>
 of the inheriting class.
+<P>
+一个类可以从其他类继承结构或行为。
+子类，父类，之类的。
 <P>
 A class can have a <i>name</i>. The function <tt>class-name</tt> takes a
 class object and returns its name. The name of an anonymous class is
@@ -43,6 +48,12 @@ name</i> <i>S</i> if <i>S</i> <b>=</b> <tt>(class-name <i>C</i>)</tt> and <i>C</
 If <i>C</i> <b>=</b> <tt>(find-class <i>S</i>)</tt>, we say that <i>C</i> is the <i>class named</i>
 <i>S</i>.
 <P>
+  一个类可以有一个名字，函数<tt>class-name</tt>接受一个类对象返回它的。
+  匿名类的名字是<tt>nil</tt>. 一个符号可以命名一个类。函数<tt>find-class</tt>接受一个符号返回它命名的类。
+  一个类有一个<i>合适的名字proper name</i>，如果名字是个符号并且这个符号命名这个类。即：
+  一个类C有一个proper name S如果S = (class-name C)且C = (find-class S).
+  注意到，S<sub>1</sub> ≠ S<sub>2</sub>时有可能(find-class S<sub>1</sub>) = (find-class S<sub>2</sub>).
+<P>
 A class <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap43387.gif"> is a <i>direct superclass</i> of a class
 <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap43591.gif"> if <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap43591.gif"> explicitly designates <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap43387.gif"> as a
 superclass in its definition.  In this case, <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap43591.gif"> is a <i>direct subclass</i> of <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap43387.gif">.  A class <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap43341.gif"> is a <i>superclass</i> of a class <IMG ALIGN=BOTTOM ALT="" SRC="_24769_tex2html_wrap43387.gif"> if there exists a series of
@@ -55,6 +66,8 @@ considered neither a superclass nor a subclass of itself.  That is, if
 class <i>C</i> along with all of its superclasses is called ``<i>C</i> and its
 superclasses.''
 <P>
+  一个类C<sub>1</sub>是C<sub>2</sub>的直接父类，如果C<sub>2</sub>定义时显式指定C<sub>1</sub>是其父类。在这种情况下，C<sub>2</sub>是C<sub>1</sub>的直接子类。间接父类子类类推。一个类既不是它自己的父类也不是它自己的子类。
+<P>
 Each class has a <i>class precedence list</i>, which is a total ordering
 on the set of the given class and its superclasses.  The total ordering
 is expressed as a list ordered from most specific to least specific.
@@ -64,11 +77,17 @@ otherwise be inherited from less specific classes.  The method selection
 and combination process uses the class precedence list to order methods
 from most specific to least specific.
 <P>
+  每个类都有一个<i>类优先表</i>，类优先表是这个类及其父类的一个全序(total ordering).
+  这个全序用一个列表表达，列表的顺序是从最具体的类到最不具体的类。类优先表有几种用途。
+  一般来说，更具体的类可以<i>屏蔽shadow</i>，或重载父类的特性。又译不下去了....
+<P>
 When a class is defined, the order in which its direct superclasses
 are mentioned in the defining form is important.  Each class has a
 <i>local precedence order</i>, which is a list consisting of the
 class followed by its direct superclasses in the order mentioned
 in the defining form.
+<P>
+  一个类被定义时，它直接父类提到的顺序有重要的，每个类都有一个<i>局部优先级顺序</i>，它是定义时直接父类的列表。
 <P>
 A class precedence list is always consistent with the local precedence
 order of each class in the list.  The classes in each local precedence
@@ -85,12 +104,18 @@ every class except itself.  The class named <tt>standard-object</tt> is
 an instance of the class <tt>standard-class</tt> and is a superclass of
 every class that is an instance of <tt>standard-class</tt> except itself.
 <P>
+  类组织成有向无环图。有两个特殊的类，<tt>t</tt>和<tt>standard-object</tt>.
+  类<tt>t</tt>没有父类。它是所有除它外类的父类。<tt>standard-object</tt>类是<tt>standard-class</tt>的实例并且是所有<tt>standard-class</tt>实例的父类(除它自己)。
+<P>
 There is a mapping from the Common Lisp Object System class space into
 the Common Lisp type space.  Many of the standard Common Lisp types
 have a corresponding
 class that has the same name as the type.  Some Common Lisp types do
 not have a corresponding class.  The integration of the type and class
 systems is discussed in section <A HREF="node273.html#IntegratingTypesandClassesSECTION">28.1.4</A>.
+<P>
+有一个从CLOS类空间到Common Lisp类型空间的映射。很多标准Common Lisp类型都有相应的同名类。
+一些Common Lisp 类型没有对应的类。类型和类的整合在节<A HREF="node273.html#IntegratingTypesandClassesSECTION">28.1.4</A>.中被讨论。
 <P>
 Classes are represented by objects that are themselves
 instances of classes.  The class of the class of an object is termed
@@ -102,6 +127,8 @@ instances and the representation of the instances of those classes.
 The Common Lisp Object System provides a default metaclass, <tt>standard-class</tt>, that is
 appropriate for most programs.  The meta-object protocol provides
 mechanisms for defining and using new metaclasses.
+<P>
+类
 <P>
 Except where otherwise specified, all classes mentioned in this
 chapter are instances of the class <tt>standard-class</tt>, all generic
